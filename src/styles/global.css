@@ -1,0 +1,8 @@
+@import 'tailwindcss';
+@plugin "@tailwindcss/typography";
+
+@import '@fontsource-variable/roboto-mono';
+
+.mono {
+    font-family: 'Roboto Mono Variable', monospace;
+}
