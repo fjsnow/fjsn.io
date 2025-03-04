@@ -1,0 +1,70 @@
+---
+import Root from '../layouts/Root.astro';
+const { frontmatter } = Astro.props;
+
+function getOrdinalDate(date: Date): string {
+    const day = date.getDate();
+    const month = date.toLocaleString('en-GB', { month: 'long' });
+    const year = date.getFullYear();
+    const suffix =
+        day % 10 === 1 && day !== 11
+            ? 'st'
+            : day % 10 === 2 && day !== 12
+              ? 'nd'
+              : day % 10 === 3 && day !== 13
+                ? 'rd'
+                : 'th';
+    return `${day}${suffix} ${month}, ${year}`;
+}
+---
+
+<Root>
+    <div class="flex flex-col gap-6">
+        <a href="/" class="text-stone-500 hover:text-stone-400 text-sm"
+            >← back to index</a
+        >
+        <div>
+            <div class="flex flex-col sm:flex-row justify-between mb-4">
+                <div class="flex flex-col">
+                    <h1 class="font-bold text-stone-50">{frontmatter.title}</h1>
+                    {
+                        frontmatter.tags && (
+                            <div class="flex flex-row gap-2 mt-2 flex-wrap">
+                                {frontmatter.tags
+                                    .sort((a: string, b: string) =>
+                                        a.localeCompare(b)
+                                    )
+                                    .map((tag: string) => (
+                                        <span class="text-xs bg-stone-800 text-stone-500 px-2 py-1 rounded-sm">
+                                            {tag}
+                                        </span>
+                                    ))}
+                            </div>
+                        )
+                    }
+                </div>
+                <div
+                    class="flex flex-row justify-between sm:justify-start sm:flex-col text-right text-sm text-stone-500 min-w-fit mt-2 sm:mt-0"
+                >
+                    <span
+                        >{getOrdinalDate(new Date(frontmatter.published))}</span
+                    >
+                    {
+                        frontmatter.edited && (
+                            <span>
+                                Edited:{' '}
+                                {getOrdinalDate(new Date(frontmatter.edited))}
+                            </span>
+                        )
+                    }
+                    <span>~{frontmatter.readingTime}</span>
+                </div>
+            </div>
+            <p class="text-sm text-stone-400 mt-2">{frontmatter.description}</p>
+        </div>
+        <div class="h-px bg-stone-800 w-full"></div>
+        <div class="prose prose-sm prose-invert prose-neutral max-w-none">
+            <slot />
+        </div>
+    </div>
+</Root>

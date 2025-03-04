@@ -1,47 +1,21 @@
 ---
-import Github from '../assets/github.svg';
-const navLinks = [{ href: '/blog', text: 'blog' }];
+import Link from '../assets/link.svg';
 ---
 
-<div class="max-w-4xl mx-auto px-4 flex flex-col min-h-screen">
-    <div class="flex justify-between items-center py-4">
-        <a
-            href="/"
-            class="text-sm bg-blue-600 px-4 py-1 text-stone-50 hover:bg-blue-700 transition-colors duration-300"
+<div class="flex flex-col justify-between mx-auto max-w-2xl px-4 min-h-dvh">
+    <div class="flex flex-col flex-grow my-8 sm:my-16">
+        <div class="flex flex-col w-full flex-grow"><slot /></div>
+        <div
+            class="flex justify-center items-center gap-2 text-sm text-stone-700 mt-8 sm:mt-16"
         >
-            site@fjsn.io:~$</a
-        >
-        <nav class="flex space-x-4">
-            {
-                navLinks.map((link) => (
-                    <a
-                        href={link.href}
-                        class="text-sm relative group inline-block text-black hover:text-white transition-colors duration-300 px-2"
-                    >
-                        <span class="relative z-0 text-black">{link.text}</span>
-                        <span class="absolute top-0 left-0 w-0 h-full bg-blue-700 transition-all duration-300 group-hover:w-full z-10" />
-                        <span class="absolute top-0 left-2 w-0 text-white overflow-hidden transition-all duration-300 group-hover:w-full z-20 whitespace-nowrap">
-                            {link.text}
-                        </span>
-                    </a>
-                ))
-            }
-        </nav>
-    </div>
-    <div class="flex flex-col flex-grow">
-        <slot />
-    </div>
-    <div
-        class="py-8 flex flex-row gap-8 justify-between text-stone-500 items-center"
-    >
-        <p class="text-sm">
-            © {new Date().getFullYear()}
-            Freddy Snow
-        </p>
-        <a href="https://github.com/fjsnow">
-            <Github
-                class="w-5 h-5 hover:text-stone-700 transition-colors duration-300"
-            />
-        </a>
+            <span>© 2025 Freddy Snow - </span>
+            <a
+                href="https://astro.build"
+                class="hover:text-stone-500 flex items-center gap-2"
+            >
+                <span>Built with Astro</span>
+                <Link class="w-3 h-3" />
+            </a>
+        </div>
     </div>
 </div>
