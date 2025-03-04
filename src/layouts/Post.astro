@@ -1,8 +1,9 @@
 ---
 import Root from '@/layouts/Root.astro';
-import { getOrdinalDate } from '@/lib/post';
+import Header from '@/components/post/Header.astro';
+import type { MDPost } from '@/lib/post';
 
-const { frontmatter } = Astro.props;
+const { frontmatter } = Astro.props as MDPost;
 ---
 
 <Root>
@@ -11,43 +12,7 @@ const { frontmatter } = Astro.props;
             >← back to index</a
         >
         <div>
-            <div class="flex flex-col sm:flex-row justify-between mb-4">
-                <div class="flex flex-col">
-                    <h1 class="font-bold text-stone-50">{frontmatter.title}</h1>
-                    {
-                        frontmatter.tags && (
-                            <div class="flex flex-row gap-2 mt-2 flex-wrap">
-                                {frontmatter.tags
-                                    .sort((a: string, b: string) =>
-                                        a.localeCompare(b)
-                                    )
-                                    .map((tag: string) => (
-                                        <span class="text-xs bg-stone-800 text-stone-400 px-2 py-1 rounded-sm">
-                                            {tag}
-                                        </span>
-                                    ))}
-                            </div>
-                        )
-                    }
-                </div>
-                <div
-                    class="flex flex-row justify-between sm:justify-start sm:flex-col text-right text-sm text-stone-400 min-w-fit mt-2 sm:mt-0"
-                >
-                    <span
-                        >{getOrdinalDate(new Date(frontmatter.published))}</span
-                    >
-                    {
-                        frontmatter.edited && (
-                            <span>
-                                Edited:{' '}
-                                {getOrdinalDate(new Date(frontmatter.edited))}
-                            </span>
-                        )
-                    }
-                    <span>~{frontmatter.readingTime}</span>
-                </div>
-            </div>
-            <p class="text-sm text-stone-400 mt-2">{frontmatter.description}</p>
+            <Header frontmatter={frontmatter} />
         </div>
         <div class="h-px bg-stone-800 w-full"></div>
         <div class="prose prose-sm prose-invert prose-neutral max-w-none">

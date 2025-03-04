@@ -1,0 +1,21 @@
+---
+import type { MDPost } from '@/lib/post';
+
+interface Props {
+    tags: MDPost['frontmatter']['tags'];
+}
+
+const { tags } = Astro.props;
+---
+
+<div class="flex flex-row gap-2 mt-2 flex-wrap">
+    {
+        tags
+            .sort((a: string, b: string) => a.localeCompare(b))
+            .map((tag: string) => (
+                <span class="text-xs bg-stone-800 text-stone-400 px-2 py-1 rounded-sm">
+                    {tag}
+                </span>
+            ))
+    }
+</div>

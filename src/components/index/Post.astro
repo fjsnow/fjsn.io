@@ -15,7 +15,7 @@ const { post } = Astro.props;
 >
     <div class="flex flex-row gap-2 justify-between mb-1">
         <h1 class="font-semibold">{post.frontmatter.title}</h1>
-        <span class="text-stone-500 text-xs">
+        <span class="text-stone-400 text-xs">
             {getOrdinalDate(new Date(post.frontmatter.published))}
         </span>
     </div>
@@ -25,7 +25,7 @@ const { post } = Astro.props;
             post.frontmatter.tags
                 .sort((a, b) => a.localeCompare(b))
                 .map((tag) => (
-                    <span class="text-xs bg-stone-800 text-stone-500 px-2 py-1 rounded-xs">
+                    <span class="text-xs bg-stone-800 text-stone-400 px-2 py-1 rounded-xs">
                         {tag}
                     </span>
                 ))

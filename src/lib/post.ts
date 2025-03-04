@@ -3,8 +3,10 @@ type MDPost = {
         title: string;
         description: string;
         published: string;
+        edited?: string;
         tags: string[];
         listed: boolean;
+        readingTime: string;
     };
     url: string;
 };

@@ -1,0 +1,19 @@
+---
+import { getOrdinalDate } from '@/lib/post';
+
+interface Props {
+    published: string;
+    edited?: string;
+    readingTime: string;
+}
+
+const { published, edited, readingTime } = Astro.props;
+---
+
+<div
+    class="flex flex-row justify-between sm:justify-start sm:flex-col text-right text-sm text-stone-400 min-w-fit mt-2 sm:mt-0"
+>
+    <span>{getOrdinalDate(new Date(published))}</span>
+    {edited && <span>Edited: {getOrdinalDate(new Date(edited))}</span>}
+    <span>~{readingTime}</span>
+</div>
