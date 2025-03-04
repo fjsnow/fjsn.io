@@ -1,131 +1,16 @@
 ---
-import Avatar from '../assets/avatar.png';
-import Root from '../layouts/Root.astro';
-import Section from '../components/index/Section.astro';
-import Github from '../assets/github.svg';
-
-interface Post {
-    frontmatter: {
-        title: string;
-        tags: string[];
-        description: string;
-        author: string;
-        published: string;
-    };
-    url: string;
-}
-
-const posts = Object.values(
-    import.meta.glob('./posts/*.md', { eager: true })
-) as Post[];
-
-const contact = {
-    email: 'root [at] fjsn [dot] io',
-    discord: 'frzddy',
-};
+import Root from '@/layouts/Root.astro';
+import Header from '@/components/index/Header.astro';
+import About from '@/components/index/About.astro';
+import Posts from '@/components/index/Posts.astro';
+import Contact from '@/components/index/Contact.astro';
 ---
 
 <Root>
     <div class="flex flex-col gap-8">
-        <div class="flex flex-row justify-between gap-4 items-center">
-            <div class="flex flex-col">
-                <div class="flex flex-row gap-2 items-center">
-                    <img
-                        src={Avatar.src}
-                        alt="avatar"
-                        class="w-5 h-5 rounded-sm"
-                    />
-                    <span class="font-semibold">Freddy Snow</span>
-                </div>
-                <span class="text-sm text-stone-500"
-                    >cs student @ <a
-                        href="https://birmingham.ac.uk"
-                        class="text-stone-500 hover:text-stone-400">uob</a
-                    > (uk)</span
-                >
-            </div>
-            <a
-                href="https://github.com/fjsnow"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="text-stone-500 hover:text-stone-400 h-fit"
-            >
-                <Github class="w-5 h-5" />
-            </a>
-        </div>
-        <Section title="about">
-            <div class="flex flex-col gap-2 text-sm">
-                <p>
-                    hi! i'm freddy (he/him), a 20 y/o developer. i'm interested
-                    in systems programming, web development and malware
-                    research! i also love mathematics.
-                </p>
-                <p>
-                    outside of studying and computer science, i'm a big fan of
-                    music, movies, and (especially) coffee.
-                </p>
-            </div>
-        </Section>
-        <Section title="blog">
-            {
-                posts.length > 0 ? (
-                    <div class="flex flex-col gap-4">
-                        {posts
-                            .sort(
-                                (a, b) =>
-                                    new Date(
-                                        b.frontmatter.published
-                                    ).getTime() -
-                                    new Date(a.frontmatter.published).getTime()
-                            )
-                            .map((post) => (
-                                <a
-                                    href={post.url}
-                                    class="flex flex-col py-2 px-3 border border-stone-800 hover:bg-stone-900 rounded-xs transition transition-coloors"
-                                >
-                                    <div class="flex flex-row gap-2 justify-between mb-1">
-                                        <h1 class="font-semibold">
-                                            {post.frontmatter.title}
-                                        </h1>
-                                        <span class="text-stone-500 text-xs">
-                                            {new Date(
-                                                post.frontmatter.published
-                                            ).toLocaleDateString()}
-                                        </span>
-                                    </div>
-                                    <p class="text-sm mb-2">
-                                        {post.frontmatter.description}
-                                    </p>
-                                    <div class="flex flex-row gap-2 flex-wrap">
-                                        {post.frontmatter.tags
-                                            .sort((a, b) => a.localeCompare(b))
-                                            .map((tag) => (
-                                                <span class="text-xs bg-stone-800 text-stone-500 px-2 py-1 rounded-xs">
-                                                    {tag}
-                                                </span>
-                                            ))}
-                                    </div>
-                                </a>
-                            ))}
-                    </div>
-                ) : (
-                    <div class="border border-dashed border-stone-800 rounded-xs p-4 flex items-center justify-center">
-                        <h1 class="text-sm">no posts were found.</h1>
-                    </div>
-                )
-            }
-        </Section>
-        <Section title="contact">
-            <div class="flex flex-col gap-2 text-sm">
-                {
-                    Object.entries(contact).map(([key, value]) => (
-                        <div class="flex flex-row gap-2 items-center justify-between">
-                            <span class="font-semibold">{key}</span>
-                            <span>{value}</span>
-                        </div>
-                    ))
-                }
-            </div>
-        </Section>
-    </div></Root
->
+        <Header />
+        <About />
+        <Posts />
+        <Contact />
+    </div>
+</Root>
