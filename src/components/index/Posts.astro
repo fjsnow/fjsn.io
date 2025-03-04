@@ -8,7 +8,7 @@ const posts = (
         import.meta.glob('@/pages/post/*.md', { eager: true })
     ) as MDPost[]
 )
-    .filter((post) => post.frontmatter.listed)
+    .filter((post) => post.frontmatter.listed !== false)
     .sort(
         (a, b) =>
             new Date(b.frontmatter.published).getTime() -
