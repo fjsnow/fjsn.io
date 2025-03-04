@@ -1,14 +1,14 @@
 import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
-import { readingTime } from './reading-time.mjs';
-import remarkGfm from 'remark-gfm';
+
+import { readingTime } from './plugins/reading-time.mjs';
 
 export default defineConfig({
     vite: {
         plugins: [tailwindcss()],
     },
     markdown: {
-        remarkPlugins: [readingTime, remarkGfm],
+        remarkPlugins: [readingTime],
         shikiConfig: {
             theme: 'material-theme-darker',
         },
