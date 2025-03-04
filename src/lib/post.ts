@@ -5,7 +5,7 @@ type MDPost = {
         published: string;
         edited?: string;
         tags: string[];
-        listed: boolean;
+        listed?: boolean;
         readingTime: string;
     };
     url: string;
