@@ -526,6 +526,12 @@ Regular Markdown syntax is not processed within code blocks. E.g.,
 asterisks are just literal asterisks within a code block. This means
 it's also easy to use Markdown to write about Markdown's own syntax.
 
+```html
+<div class="footer">
+    &copy; 2004 Foo Corporation
+</div>
+```
+
 
 
 <h3 id="hr">Horizontal Rules</h3>
