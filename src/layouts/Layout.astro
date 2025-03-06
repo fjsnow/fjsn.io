@@ -1,21 +1,10 @@
 ---
-import Link from '@/assets/icons/link.svg';
+import Footer from '@/components/layout/Footer.astro';
 ---
 
 <div class="flex flex-col justify-between mx-auto max-w-2xl px-4 min-h-dvh">
     <div class="flex flex-col flex-grow my-8 sm:my-16">
         <div class="flex flex-col w-full flex-grow"><slot /></div>
-        <div
-            class="flex justify-center items-center gap-2 text-sm text-stone-400 mt-8 sm:mt-16"
-        >
-            <span>© 2025 Freddy Snow - </span>
-            <a
-                href="https://github.com/fjsnow/fjsn.io"
-                class="hover:text-stone-300 flex items-center gap-2"
-            >
-                <span>Source Code</span>
-                <Link class="w-3 h-3" />
-            </a>
-        </div>
+        <Footer />
     </div>
 </div>
