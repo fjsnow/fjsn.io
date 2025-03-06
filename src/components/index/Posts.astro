@@ -5,7 +5,7 @@ import type { MDPost } from '@/lib/post';
 
 const posts = (
     Object.values(
-        import.meta.glob('@/pages/post/*.md', { eager: true })
+        import.meta.glob('@/pages/posts/*.md', { eager: true })
     ) as MDPost[]
 )
     .filter((post) => post.frontmatter.listed !== false)
