@@ -1,5 +1,4 @@
 ---
-import { getOrdinalDate } from '@/lib/post';
 import type { MDPost } from '@/lib/post';
 import Tags from './Tags.astro';
 import PostMeta from './PostMeta.astro';
@@ -11,15 +10,16 @@ interface Props {
 const { frontmatter } = Astro.props;
 ---
 
-<div class="mb-4 flex flex-row justify-between">
-    <div class="flex flex-col">
-        <h1 class="font-bold text-stone-50">{frontmatter.title}</h1>
-        <Tags tags={frontmatter.tags} />
+<div>
+    <div class="mb-4 flex flex-row justify-between">
+        <div class="flex flex-col">
+            <h1 class="font-bold text-stone-50">{frontmatter.title}</h1>
+            <Tags tags={frontmatter.tags} />
+        </div>
+        <PostMeta
+            published={frontmatter.published}
+            readingTime={frontmatter.readingTime}
+        />
     </div>
-    <PostMeta
-        published={frontmatter.published}
-        edited={frontmatter.edited}
-        readingTime={frontmatter.readingTime}
-    />
+    <p class="mt-2 text-sm text-stone-400">{frontmatter.description}</p>
 </div>
-<p class="mt-2 text-sm text-stone-400">{frontmatter.description}</p>

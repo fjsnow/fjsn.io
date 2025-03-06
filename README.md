@@ -18,7 +18,7 @@ tags:
 # content
 ```
 
-Optionally, you can set `listed: false` in the frontmatter to hide the post from the index, and `edited` to show the last edited date with a link to the edit history on GitHub.
+Optionally, you can provide `listed: false` in the frontmatter to hide the post from the index, and `edited: true` to provide a link to the edit history.
 
 ## Running the site
 

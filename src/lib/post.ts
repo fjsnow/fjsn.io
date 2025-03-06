@@ -3,9 +3,9 @@ type MDPost = {
         title: string;
         description: string;
         published: string;
-        edited?: string;
         tags: string[];
         listed?: boolean;
+        edited?: boolean;
         readingTime: string;
     };
     url: string;
