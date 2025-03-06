@@ -10,7 +10,7 @@
         "format:check": "prettier --check ."
     },
     "dependencies": {
-        "@fontsource-variable/geist-mono": "^5.0.1",
+        "@fontsource-variable/roboto-mono": "^5.2.5",
         "@tailwindcss/vite": "^4.0.9",
         "astro": "^5.4.1",
         "mdast-util-to-string": "^4.0.0",

@@ -1,10 +1,10 @@
 @import 'tailwindcss';
 @plugin "@tailwindcss/typography";
 
-@import '@fontsource-variable/geist-mono';
+@import '@fontsource-variable/roboto-mono';
 
 @theme {
-    --font-mono: 'Geist Mono Variable', monospace;
+    --font-mono: 'Roboto Mono Variable', monospace;
 }
 
 .prose-sm pre {

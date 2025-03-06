@@ -4,7 +4,7 @@
     "": {
       "name": "fjsn.io",
       "dependencies": {
-        "@fontsource-variable/geist-mono": "^5.0.1",
+        "@fontsource-variable/roboto-mono": "^5.2.5",
         "@tailwindcss/vite": "^4.0.9",
         "astro": "^5.4.1",
         "mdast-util-to-string": "^4.0.0",
@@ -89,7 +89,7 @@
 
     "@esbuild/win32-x64": ["@esbuild/win32-x64@0.25.0", "", { "os": "win32", "cpu": "x64" }, "sha512-ZENoHJBxA20C2zFzh6AI4fT6RraMzjYw4xKWemRTRmRVtN9c5DcH9r/f2ihEkMjOW5eGgrwCslG/+Y/3bL+DHQ=="],
 
-    "@fontsource-variable/geist-mono": ["@fontsource-variable/geist-mono@5.2.5", "", {}, "sha512-zyuyDtO00SbmqU4Bo5XWzX2hE5RUxL+h2bv3P8SrmxqfqW66FU/xw5DW3xRQPqQgyEpb/Fh5FEFCpOna78dvCA=="],
+    "@fontsource-variable/roboto-mono": ["@fontsource-variable/roboto-mono@5.2.5", "", {}, "sha512-JsvF7AvjgqGBKCtVuBE5rdYrTdx8yY61Ralo0n6wnlWLCtYAHnj7NjHmpWWvSq9ROKByRfropM7VyeO0a66M3Q=="],
 
     "@img/sharp-darwin-arm64": ["@img/sharp-darwin-arm64@0.33.5", "", { "optionalDependencies": { "@img/sharp-libvips-darwin-arm64": "1.0.4" }, "os": "darwin", "cpu": "arm64" }, "sha512-UT4p+iz/2H4twwAoLCqfA9UH5pI6DggwKEGuaPy7nCVQ8ZsiY5PIcrRvD1DzuY3qYL07NtIQcWnBSY/heikIFQ=="],
 
