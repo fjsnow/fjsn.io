@@ -11,21 +11,21 @@ const { post } = Astro.props;
 
 <a
     href={post.url}
-    class="flex flex-col py-2 px-3 border border-stone-800 hover:bg-stone-900 rounded-xs transition-colors"
+    class="flex flex-col rounded-xs border border-stone-800 px-3 py-2 transition-colors hover:bg-stone-900"
 >
-    <div class="flex flex-row gap-2 justify-between mb-1">
+    <div class="mb-1 flex flex-row justify-between gap-2">
         <h1 class="font-semibold">{post.frontmatter.title}</h1>
-        <span class="text-stone-400 text-xs">
+        <span class="text-xs text-stone-400">
             {getOrdinalDate(new Date(post.frontmatter.published))}
         </span>
     </div>
-    <p class="text-sm mb-2">{post.frontmatter.description}</p>
-    <div class="flex flex-row gap-2 flex-wrap">
+    <p class="mb-2 text-sm">{post.frontmatter.description}</p>
+    <div class="flex flex-row flex-wrap gap-2">
         {
             post.frontmatter.tags
                 .sort((a, b) => a.localeCompare(b))
                 .map((tag) => (
-                    <span class="text-xs bg-stone-800 text-stone-400 px-2 py-1 rounded-xs">
+                    <span class="rounded-xs bg-stone-800 px-2 py-1 text-xs text-stone-400">
                         {tag}
                     </span>
                 ))

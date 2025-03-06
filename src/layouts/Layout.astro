@@ -2,9 +2,9 @@
 import Footer from '@/components/layout/Footer.astro';
 ---
 
-<div class="flex flex-col justify-between mx-auto max-w-2xl px-4 min-h-dvh">
-    <div class="flex flex-col flex-grow my-8 sm:my-16">
-        <div class="flex flex-col w-full flex-grow"><slot /></div>
+<div class="mx-auto flex min-h-dvh max-w-2xl flex-col justify-between px-4">
+    <div class="my-8 flex flex-grow flex-col sm:my-16">
+        <div class="flex w-full flex-grow flex-col"><slot /></div>
         <Footer />
     </div>
 </div>

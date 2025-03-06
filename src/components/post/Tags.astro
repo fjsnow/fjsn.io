@@ -8,12 +8,12 @@ interface Props {
 const { tags } = Astro.props;
 ---
 
-<div class="flex flex-row gap-2 mt-2 flex-wrap">
+<div class="mt-2 flex flex-row flex-wrap gap-2">
     {
         tags
             .sort((a: string, b: string) => a.localeCompare(b))
             .map((tag: string) => (
-                <span class="text-xs bg-stone-800 text-stone-400 px-2 py-1 rounded-sm">
+                <span class="rounded-sm bg-stone-800 px-2 py-1 text-xs text-stone-400">
                     {tag}
                 </span>
             ))

@@ -11,7 +11,7 @@ const { published, edited, readingTime } = Astro.props;
 ---
 
 <div
-    class="flex justify-between sm:justify-start flex-col text-right text-sm text-stone-400 min-w-fit mt-2 sm:mt-0"
+    class="mt-2 flex min-w-fit flex-col justify-between text-right text-sm text-stone-400 sm:mt-0 sm:justify-start"
 >
     <span>{getOrdinalDate(new Date(published))}</span>
     {edited && <span>Edited: {getOrdinalDate(new Date(edited))}</span>}

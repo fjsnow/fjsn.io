@@ -5,6 +5,7 @@ This is my personal site, built with [Astro](https://astro.build) and [Bun](http
 Mark down files placed within `src/pages/posts` will be automatically converted to blog posts, with layout and all.
 
 ## Prerequisites
+
 1. [Bun](https://bun.sh)
 
 ## Development
