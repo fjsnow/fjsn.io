@@ -1,26 +1,24 @@
 ---
-import Section from './Section.astro';
+import Section from '@/components/index/Section.astro';
 
 /* maybe a little over the top, but it's fun */
 
 type Contact = {
     platform: string;
-    type: 'text' | 'link';
-    value: string;
+    text: string;
+    link?: string;
     masked: boolean;
 };
 
 const contacts = [
     {
         platform: 'Email',
-        type: 'text',
-        value: 'hi@fjsn.io',
+        text: 'hi@fjsn.io',
         masked: true,
     } satisfies Contact,
     {
         platform: 'Discord',
-        type: 'text',
-        value: 'frzddy',
+        text: 'frzddy',
         masked: false,
     } satisfies Contact,
 ] as Contact[];
@@ -39,14 +37,29 @@ const _1337 = (s: string) =>
                     class="flex flex-row items-center justify-between gap-2"
                     id={contact.platform}
                     data-masked={contact.masked ? 'true' : 'false'}
-                    data-value={_1337(contact.value)}
+                    data-value={contact.masked ? _1337(contact.text) : ''}
+                    data-link={contact.masked ? _1337(contact.link || '') : ''}
                 >
                     <span class="font-semibold">{contact.platform}</span>
-                    <span>
-                        {contact.masked
-                            ? '*'.repeat(contact.value.length)
-                            : contact.value}
-                    </span>
+                    {!contact.link ? (
+                        <span>
+                            {contact.masked
+                                ? '*'.repeat(contact.text.length)
+                                : contact.text}
+                        </span>
+                    ) : (
+                        <a
+                            class="flex items-center gap-1"
+                            href={contact.masked ? '#' : contact.link}
+                            target="_blank"
+                        >
+                            <span class="hover:underline">
+                                {contact.masked
+                                    ? '*'.repeat(contact.text.length)
+                                    : contact.text}
+                            </span>
+                        </a>
+                    )}
                 </div>
             ))
         }
@@ -67,7 +80,9 @@ const _1337 = (s: string) =>
     document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll("[data-masked='true']").forEach((element) => {
             const value = element.getAttribute('data-value');
+            const link = element.getAttribute('data-link');
             if (value) element.children[1].textContent = _7331(value);
+            if (link) element.children[1].setAttribute('href', _7331(link));
         });
     });
 </script>
