@@ -1,21 +1,73 @@
 ---
 import Section from './Section.astro';
 
-const contact = {
-    email: 'root [at] fjsn [dot] io',
-    discord: 'frzddy',
+/* maybe a little over the top, but it's fun */
+
+type Contact = {
+    platform: string;
+    type: 'text' | 'link';
+    value: string;
+    masked: boolean;
 };
+
+const contacts = [
+    {
+        platform: 'Email',
+        type: 'text',
+        value: 'hi@fjsn.io',
+        masked: true,
+    } satisfies Contact,
+    {
+        platform: 'Discord',
+        type: 'text',
+        value: 'frzddy',
+        masked: false,
+    } satisfies Contact,
+] as Contact[];
+
+const _1337 = (s: string) =>
+    String.fromCharCode(
+        ...[...s].map((c, i) => c.charCodeAt(0) + [1, 3, 3, 7][i % 4])
+    );
 ---
 
 <Section title="contact">
     <div class="flex flex-col gap-2 text-sm">
         {
-            Object.entries(contact).map(([key, value]) => (
-                <div class="flex flex-row items-center justify-between gap-2">
-                    <span class="font-semibold">{key}</span>
-                    <span>{value}</span>
+            contacts.map((contact) => (
+                <div
+                    class="flex flex-row items-center justify-between gap-2"
+                    id={contact.platform}
+                    data-masked={contact.masked ? 'true' : 'false'}
+                    data-value={_1337(contact.value)}
+                >
+                    <span class="font-semibold">{contact.platform}</span>
+                    <span>
+                        {contact.masked
+                            ? '*'.repeat(contact.value.length)
+                            : contact.value}
+                    </span>
                 </div>
             ))
         }
+        <noscript>
+            <p class="text-right text-xs text-stone-500 italic sm:text-sm">
+                Enable JavaScript to view masked information.
+            </p>
+        </noscript>
     </div>
 </Section>
+
+<script>
+    const _7331 = (s: string) =>
+        String.fromCharCode(
+            ...[...s].map((c, i) => c.charCodeAt(0) - [1, 3, 3, 7][i % 4])
+        );
+
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll("[data-masked='true']").forEach((element) => {
+            const value = element.getAttribute('data-value');
+            if (value) element.children[1].textContent = _7331(value);
+        });
+    });
+</script>
