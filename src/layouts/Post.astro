@@ -19,7 +19,6 @@ const { frontmatter } = Astro.props as MDPost;
             <span>back</span>
         </a>
         <Header frontmatter={frontmatter} />
-        <div class="h-px w-full bg-stone-800"></div>
         <div class="prose prose-sm prose-invert prose-neutral max-w-none">
             <slot />
         </div>
