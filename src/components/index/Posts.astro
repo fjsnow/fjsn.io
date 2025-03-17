@@ -7,13 +7,7 @@ const posts = (
     Object.values(
         import.meta.glob('@/pages/posts/*.md', { eager: true })
     ) as MDPost[]
-)
-    .filter((post) => post.frontmatter.listed !== false)
-    .sort(
-        (a, b) =>
-            new Date(b.frontmatter.published).getTime() -
-            new Date(a.frontmatter.published).getTime()
-    );
+).filter((post) => post.frontmatter.listed !== false);
 ---
 
 <Section title="posts">
@@ -25,9 +19,9 @@ const posts = (
                 ))}
             </div>
         ) : (
-            <div class="flex items-center justify-center rounded-xs border border-dashed border-stone-800 p-4">
-                <h1 class="text-sm">no posts were found.</h1>
-            </div>
+            <h1 class="mt-2 text-center text-sm text-stone-400 italic">
+                no posts.
+            </h1>
         )
     }
 </Section>

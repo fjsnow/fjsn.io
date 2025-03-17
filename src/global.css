@@ -7,13 +7,59 @@
     --font-mono: 'Roboto Mono Variable', monospace;
 }
 
-.prose-sm pre {
-    font-family: var(--font-mono);
-    font-variant-ligatures: none;
-    overflow-x: auto;
-    border-radius: 0.5rem;
-    background-color: #111827;
-    padding: 1rem;
-    font-size: 0.875rem;
-    color: #ffffff;
+@utility prose {
+    p {
+        line-height: 1.4;
+        font-weight: 400;
+        color: var(--color-stone-50);
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-weight: 700;
+        color: var(--color-stone-50);
+    }
+
+    a {
+        &:hover {
+            text-decoration: underline;
+        }
+        font-weight: 400;
+        color: #358ffd;
+        text-decoration: none;
+        position: relative;
+    }
+
+    a:not([href^='mailto:'])::after {
+        content: '';
+        display: inline-block;
+        width: 0.75rem;
+        height: 0.75rem;
+        margin-left: 0.25rem;
+        background-color: currentColor;
+        mask-image: url('../src/assets/icons/link.svg');
+        -webkit-mask-image: url('../src/assets/icons/link.svg');
+        mask-size: contain; /* Ensures the whole SVG fits */
+        mask-position: center;
+        mask-repeat: no-repeat;
+    }
+
+    pre {
+        font-family: var(--font-mono);
+        font-variant-ligatures: none;
+        overflow-x: auto;
+        border-radius: 0.5rem;
+        background-color: #111827;
+        padding: 1rem;
+        font-size: 0.875rem;
+        color: #ffffff;
+    }
+
+    hr {
+        border-color: var(--color-stone-800);
+    }
 }

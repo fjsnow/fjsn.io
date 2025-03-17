@@ -10,7 +10,6 @@ Mark down files placed within `src/pages/posts` will be automatically converted 
 ---
 layout: "@/layouts/Post.astro"
 title:
-description:
 published:
 tags:
 ---
@@ -18,7 +17,7 @@ tags:
 # content
 ```
 
-Optionally, you can provide `listed: false` in the frontmatter to hide the post from the index, and `edited: true` to provide a link to the edit history.
+Optionally, you can provide `listed: false` in the frontmatter to hide the post from the index.
 
 ## Running the site
 

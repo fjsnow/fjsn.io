@@ -1,10 +1,8 @@
 ---
 import Left from '@/assets/icons/left.svg';
-import Link from '@/assets/icons/link.svg';
 
 import Root from '@/layouts/Root.astro';
 import Header from '@/components/post/Header.astro';
-import Links from '@/components/post/Links.astro';
 
 import type { MDPost } from '@/lib/post';
 
@@ -13,7 +11,13 @@ const { frontmatter } = Astro.props as MDPost;
 
 <Root>
     <div class="flex flex-col gap-6">
-        <Links edited={frontmatter.edited ?? false} />
+        <a
+            href="/"
+            class="flex flex-row items-center gap-2 text-sm text-stone-400 hover:text-stone-300"
+        >
+            <Left class="h-3 w-3" />
+            <span>back</span>
+        </a>
         <Header frontmatter={frontmatter} />
         <div class="h-px w-full bg-stone-800"></div>
         <div class="prose prose-sm prose-invert prose-neutral max-w-none">
