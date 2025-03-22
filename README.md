@@ -11,7 +11,6 @@ Mark down files placed within `src/pages/posts` will be automatically converted 
 layout: "@/layouts/Post.astro"
 title:
 published:
-tags:
 ---
 
 # content
