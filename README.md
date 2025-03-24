@@ -2,13 +2,12 @@
 
 This is my personal site, built with [Astro](https://astro.build) and [Bun](https://bun.sh).
 
-Mark down files placed within `src/pages/posts` will be automatically converted to blog posts, with layout (if set in the frontmatter) and all.
+Mark down files placed within `src/posts` will be automatically converted to blog posts, with layout (if set in the frontmatter) and all.
 
 ## Post Template
 
 ```markdown
 ---
-layout: "@/layouts/Post.astro"
 title:
 published:
 ---
