@@ -1,13 +1,11 @@
 ---
 import Section from './Section.astro';
 import Post from './Post.astro';
-import type { MDPost } from '@/lib/post';
+import { getCollection } from 'astro:content';
 
-const posts = (
-    Object.values(
-        import.meta.glob('@/pages/posts/*.md', { eager: true })
-    ) as MDPost[]
-).filter((post) => post.frontmatter.listed !== false);
+const posts = (await getCollection('posts')).filter(
+    (post) => post.data.listed !== false
+);
 ---
 
 <Section title="posts">

@@ -1,21 +1,22 @@
 ---
-import Link from '@/assets/icons/link.svg';
-
 import { formatDate } from '@/lib/post';
-import type { MDPost } from '@/lib/post';
+import type { CollectionEntry } from 'astro:content';
 
 interface Props {
-    post: MDPost;
+    post: CollectionEntry<'posts'>;
 }
 
 const { post } = Astro.props;
 ---
 
-<a href={post.url} class="flex flex-row items-center justify-between gap-2">
+<a
+    href={'/posts/' + post.id}
+    class="flex flex-row items-center justify-between gap-2"
+>
     <div class="flex flex-row items-center gap-2">
-        <h1 class="text-sm">{post.frontmatter.title}</h1>
+        <h1 class="text-sm">{post.data.title}</h1>
     </div>
     <span class="text-xs text-stone-400">
-        {formatDate(new Date(post.frontmatter.published))}
+        {formatDate(new Date(post.data.published))}
     </span>
 </a>

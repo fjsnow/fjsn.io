@@ -1,16 +1,3 @@
-type MDPost = {
-    frontmatter: {
-        title: string;
-        description: string;
-        published: string;
-        tags: string[];
-        listed?: boolean;
-        edited?: boolean;
-        readingTime: string;
-    };
-    url: string;
-};
-
 function formatDate(date: Date): string {
     return new Intl.DateTimeFormat('en-GB', {
         day: 'numeric',
@@ -20,4 +7,3 @@ function formatDate(date: Date): string {
 }
 
 export { formatDate };
-export type { MDPost };

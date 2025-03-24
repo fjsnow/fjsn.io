@@ -1,14 +1,23 @@
 ---
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts');
+  return posts.map(post => ({
+    params: { id: post.id },
+    props: { post },
+  }));
+}
+
 import Left from '@/assets/icons/left.svg';
 
 import Root from '@/layouts/Root.astro';
 import Header from '@/components/post/Header.astro';
 
-import type { MDPost } from '@/lib/post';
+const { post } = Astro.props;
+const { Content } = await render(post);
 
-const { frontmatter } = Astro.props as MDPost;
 ---
-
 <Root>
     <div class="flex flex-col gap-6">
         <a
@@ -18,9 +27,9 @@ const { frontmatter } = Astro.props as MDPost;
             <Left class="h-3 w-3" />
             <span>back</span>
         </a>
-        <Header frontmatter={frontmatter} />
+	<Header post={post}/>
         <div class="prose prose-sm prose-invert prose-neutral max-w-none">
-            <slot />
+	    <Content/>
         </div>
     </div>
 </Root>
