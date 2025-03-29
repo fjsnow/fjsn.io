@@ -2,12 +2,12 @@
 import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('posts');
+    const posts = await getCollection('posts');
 
-  return posts.map(post => ({
-    params: { id: post.id },
-    props: { post },
-  }));
+    return posts.map((post) => ({
+        params: { id: post.id },
+        props: { post },
+    }));
 }
 
 import Left from '@/assets/icons/left.svg';
@@ -17,8 +17,8 @@ import Header from '@/components/post/Header.astro';
 
 const { post } = Astro.props;
 const { Content } = await render(post);
-
 ---
+
 <Root>
     <div class="flex flex-col gap-6">
         <a
@@ -28,9 +28,9 @@ const { Content } = await render(post);
             <Left class="h-3 w-3" />
             <span>back</span>
         </a>
-	<Header post={post}/>
+        <Header post={post} />
         <div class="prose prose-sm prose-invert prose-neutral max-w-none">
-	    <Content/>
+            <Content />
         </div>
     </div>
 </Root>
