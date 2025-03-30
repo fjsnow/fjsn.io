@@ -67,7 +67,8 @@
         color: var(--color-stone-50);
     }
 
-    p code {
+    p code,
+    td code {
         color: var(--prose-text-colour);
     }
 
