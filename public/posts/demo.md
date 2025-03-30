@@ -1,7 +1,6 @@
 ---
 title: 'Demo'
 published: '2025-03-17'
-listed: false
 ---
 
 # Headers
