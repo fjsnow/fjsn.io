@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://fjsn.io/sitemap-index.xml
