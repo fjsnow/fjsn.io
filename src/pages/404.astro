@@ -4,11 +4,13 @@ import Root from '@/layouts/Root.astro';
 ---
 
 <Metadata
-    title="404"
+    title="fjsn.io • 404"
     description="This page does not exist."
-    image={import.meta.env.SITE + '/og/404.png'}
-    url={import.meta.env.SITE + '/404'}
-    type="website"
+    url={import.meta.env.SITE}
+    og={{
+        image: import.meta.env.SITE + '/og/404.png',
+        type: 'website',
+    }}
 />
 <Root>
     <div class="flex flex-grow flex-col items-center justify-center gap-4">

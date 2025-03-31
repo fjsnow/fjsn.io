@@ -18,16 +18,17 @@ import Metadata from '@/components/Metadata.astro';
 
 const { post } = Astro.props;
 const { Content } = await render(post);
-
-const url = import.meta.env.SITE + '/posts/' + post.id;
 ---
 
 <Metadata
-    title={post.data.title}
+    title={"fjsn.io • " + post.data.title}
     description={post.data.description}
-    image={url + '/og.png'}
-    url={url}
-    type="article"
+    url={import.meta.env.SITE}
+    og={{
+	title: post.data.title,
+	image: import.meta.env.SITE + '/posts/' + post.id + '/og.png',
+        type: 'article',
+    }}
 />
 <Root>
     <div class="flex flex-col gap-6">
