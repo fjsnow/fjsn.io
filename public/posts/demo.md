@@ -1,7 +1,7 @@
 ---
-title: 'Demo'
+title: 'Demo post'
 published: '2025-03-17'
-listed: false
+listed: true
 ---
 
 # Headers
