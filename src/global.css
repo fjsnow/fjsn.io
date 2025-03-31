@@ -1,5 +1,6 @@
 @import 'tailwindcss';
 @plugin "@tailwindcss/typography";
+@config "../tailwind.config.js";
 
 @import '@fontsource-variable/roboto-mono';
 
@@ -7,36 +8,18 @@
     --font-mono: 'Roboto Mono Variable', monospace;
 }
 
-:root {
-    --prose-text-colour: var(--color-stone-950);
-    --prose-marker-colour: var(--color-stone-500);
-    --prose-link-colour: #0268e3;
-    --prose-line-colour: var(--color-stone-200);
-}
-
-@media (prefers-color-scheme: dark) {
-    :root {
-        --prose-text-colour: var(--color-stone-50);
-        --prose-link-colour: #358ffd;
-        --prose-line-colour: var(--color-stone-800);
-    }
-}
-
 @utility prose {
     li,
     table td,
     figure figcaption {
-        color: var(--prose-text-colour);
         font-weight: 400;
     }
 
     table th {
-        color: var(--prose-text-colour);
         font-weight: 700;
     }
 
     p {
-        color: var(--prose-text-colour);
         line-height: 1.5;
     }
 
@@ -47,7 +30,6 @@
     h5,
     h6 {
         font-weight: 700;
-        color: var(--prose-text-colour);
         margin-top: 0;
     }
 
@@ -63,22 +45,8 @@
         margin-bottom: 0.5rem;
     }
 
-    strong {
-        color: var(--prose-text-color);
-    }
-
-    pre.astro-code code {
-        color: var(--color-stone-50);
-    }
-
-    p code,
-    td code {
-        color: var(--prose-text-colour);
-    }
-
     a {
         font-weight: 400;
-        color: var(--prose-link-colour);
         text-decoration: none;
         position: relative;
     }
@@ -103,11 +71,6 @@
         mask-repeat: no-repeat;
     }
 
-    ol > li::marker,
-    ul > li::marker {
-        color: var(--prose-marker-colour);
-    }
-
     img {
         max-width: 100%;
         height: auto;
@@ -119,23 +82,21 @@
         font-variant-ligatures: none;
         overflow-x: auto;
         border-radius: 0.5rem;
-        background-color: #111827;
         padding: 1rem;
         font-size: 0.875rem;
     }
 
     hr {
-        border-color: var(--prose-line-colour);
         margin-top: 1.5rem;
         margin-bottom: 1.5rem;
     }
 
     table tr {
-        border-bottom: 1px solid var(--prose-line-colour);
+        border-bottom: 1px solid var(--tw-prose-td-borders);
     }
 
     blockquote {
-        border-left: 0.25rem solid var(--prose-line-colour);
+        border-left: 0.25rem solid var(--tw-prose-quote-borders);
         padding-left: 1rem;
         margin-left: 0;
     }
