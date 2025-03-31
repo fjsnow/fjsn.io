@@ -5,37 +5,27 @@ import fs from 'fs';
 import yaml from 'js-yaml';
 import path from 'path';
 
-const site = 'https://fjsn.io';
+const BASE_URL = 'https://fjsn.io';
 
 const unlisted = [];
 
-function traverse(dir) {
-    for (const file of fs.readdirSync(dir)) {
-        const filePath = path.join(dir, file);
-        const stat = fs.statSync(filePath);
+const postsDir = path.join(process.cwd(), 'public', 'posts');
+for (const file of fs.readdirSync(postsDir)) {
+    const filePath = path.join(postsDir, file);
+    if (!['.md', '.mdx'].includes(path.extname(file))) continue;
 
-        if (stat.isDirectory()) {
-            traverse(filePath);
-            continue;
-        }
+    const content = fs.readFileSync(filePath, 'utf8');
+    const [_, yamlData] = content.split('---');
+    const metadata = yaml.load(yamlData) || {};
 
-        if (!['.md', '.mdx'].includes(path.extname(file))) continue;
-
-        const content = fs.readFileSync(filePath, 'utf8');
-        const [_, yamlData] = content.split('---');
-        const metadata = yaml.load(yamlData) || {};
-
-        if (metadata.listed === false) {
-            const slug = file.replace(/\.(mdx?)/, '');
-            unlisted.push(`${site}/posts/${slug}/`);
-        }
+    if (metadata.listed === false) {
+        const slug = file.replace(/\.(mdx?)/, '');
+        unlisted.push(`${BASE_URL}/posts/${slug}/`);
     }
 }
 
-traverse(path.join(process.cwd(), 'public', 'posts'));
-
 export default defineConfig({
-    site: site,
+    site: BASE_URL,
     vite: { plugins: [tailwindcss()] },
     markdown: { shikiConfig: { theme: 'houston' } },
     experimental: { svg: true },
