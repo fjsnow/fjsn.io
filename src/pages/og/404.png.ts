@@ -1,17 +1,9 @@
-import { getCollection, type CollectionEntry } from 'astro:content';
 import fs from 'fs';
 import path from 'path';
 import { ImageResponse } from '@vercel/og';
 import { formatDate } from '@/lib/post';
 
-interface Props {
-    params: { slug: string };
-    props: { post: CollectionEntry<'posts'> };
-}
-
-export function GET({ props }: Props) {
-    const { post } = props;
-
+export function GET() {
     const avatar = fs.readFileSync(path.resolve('src/assets/avatar.png'));
     const robotoMono = fs.readFileSync(
         path.resolve('src/assets/fonts/RobotoMono-Medium.ttf')
@@ -28,34 +20,6 @@ export function GET({ props }: Props) {
                 position: 'relative',
             },
             children: [
-                {
-                    type: 'div',
-                    props: {
-                        style: {
-                            position: 'absolute',
-                            top: '110px',
-                            left: '50px',
-                            width: '1100px',
-                            display: 'flex',
-                        },
-                        children: [
-                            {
-                                type: 'div',
-                                props: {
-                                    style: {
-                                        fontSize: '28px',
-                                        fontFamily: 'Roboto Mono',
-                                        lineHeight: '1.5',
-                                        wordWrap: 'break-word',
-                                        maxWidth: '100%',
-                                        color: '#57534d',
-                                    },
-                                    children: formatDate(post.data.published),
-                                },
-                            },
-                        ],
-                    },
-                },
                 {
                     type: 'div',
                     props: {
@@ -78,7 +42,36 @@ export function GET({ props }: Props) {
                                         wordWrap: 'break-word',
                                         maxWidth: '100%',
                                     },
-                                    children: post.data.title,
+                                    children: '404',
+                                },
+                            },
+                        ],
+                    },
+                },
+                {
+                    type: 'div',
+                    props: {
+                        style: {
+                            position: 'absolute',
+                            top: '210px',
+                            left: '50px',
+                            width: '1100px',
+                            display: 'flex',
+                        },
+                        children: [
+                            {
+                                type: 'div',
+                                props: {
+                                    style: {
+                                        color: '#57534d',
+                                        fontSize: '32px',
+                                        fontFamily: 'Roboto Mono',
+                                        lineHeight: '1.25',
+                                        wordWrap: 'break-word',
+                                        maxWidth: '100%',
+                                    },
+                                    children:
+                                        "are you sure you're in the right place?",
                                 },
                             },
                         ],
@@ -137,12 +130,4 @@ export function GET({ props }: Props) {
             },
         ],
     });
-}
-
-export async function getStaticPaths() {
-    const blogPosts = await getCollection('posts');
-    return blogPosts.map((post) => ({
-        params: { slug: post.id },
-        props: { post },
-    }));
 }

@@ -1,5 +1,6 @@
 ---
 title: 'Demo post'
+description: 'Information about Markdown syntax'
 published: '2025-03-17'
 listed: true
 ---

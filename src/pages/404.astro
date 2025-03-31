@@ -1,7 +1,15 @@
 ---
+import Metadata from '@/components/Metadata.astro';
 import Root from '@/layouts/Root.astro';
 ---
 
+<Metadata
+    title="404"
+    description="This page does not exist."
+    image={import.meta.env.SITE + '/og/404.png'}
+    url={import.meta.env.SITE + '/404'}
+    type="article"
+/>
 <Root>
     <div class="flex flex-grow flex-col items-center justify-center gap-4">
         <h1 class="text-2xl font-black text-stone-800 dark:text-stone-200">
