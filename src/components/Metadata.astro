@@ -15,7 +15,7 @@ interface Props {
 const props = Astro.props;
 ---
 
-<title>fjsn.io • {props.title}</title>
+<title>{props.title}</title>
 <meta name="description" content={props.description} />
 {props.url && <link rel="canonical" href={props.url} />}
 <meta property="og:title" content={props.og.title || props.title} />
