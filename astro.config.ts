@@ -7,8 +7,7 @@ import path from 'path';
 
 const BASE_URL = 'https://fjsn.io';
 
-const unlisted = [];
-
+const unlisted: string[] = [];
 const postsDir = path.join(process.cwd(), 'public', 'posts');
 for (const file of fs.readdirSync(postsDir)) {
     const filePath = path.join(postsDir, file);
@@ -16,7 +15,7 @@ for (const file of fs.readdirSync(postsDir)) {
 
     const content = fs.readFileSync(filePath, 'utf8');
     const [_, yamlData] = content.split('---');
-    const metadata = yaml.load(yamlData) || {};
+    const metadata = (yaml.load(yamlData) || {}) as { listed?: boolean };
 
     if (metadata.listed === false) {
         const slug = file.replace(/\.(mdx?)/, '');
