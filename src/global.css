@@ -36,7 +36,7 @@
     }
 
     p {
-        color: var(--prose-text-color);
+        color: var(--prose-text-colour);
         line-height: 1.5;
     }
 
