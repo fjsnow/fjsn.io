@@ -2,7 +2,7 @@
 
 This is my personal site, built with [Astro](https://astro.build) and [Bun](https://bun.sh).
 
-Mark down files placed within `public/posts` will be automatically converted to blog posts, with layout and all.
+Markdown files placed within `public/posts` will be automatically converted to blog posts, with layout and all.
 
 ## Post Template
 
@@ -15,7 +15,7 @@ published:
 # content
 ```
 
-Optionally, you can provide `listed: false` in the frontmatter to hide the post from the index and the sitemap.
+Optionally, you can provide `listed: false` in the frontmatter to hide the post from the index and the sitemap. Posts are validated at build time, so you'll get an error if you forget to fill in the required fields.
 
 ## Running the site
 
