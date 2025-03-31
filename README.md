@@ -15,7 +15,7 @@ published:
 # content
 ```
 
-Optionally, you can provide `listed: false` in the frontmatter to hide the post from the index.
+Optionally, you can provide `listed: false` in the frontmatter to hide the post from the index and the sitemap.
 
 ## Running the site
 
