@@ -1,7 +1,6 @@
 import fs from 'fs';
 import path from 'path';
 import { ImageResponse } from '@vercel/og';
-import { formatDate } from '@/lib/post';
 
 export function GET() {
     const avatar = fs.readFileSync(path.resolve('src/assets/avatar.png'));
@@ -121,7 +120,7 @@ export function GET() {
 
     return new ImageResponse(html, {
         width: 1200,
-        height: 600,
+        height: 630,
         fonts: [
             {
                 name: 'Roboto Mono',
