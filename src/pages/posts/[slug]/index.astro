@@ -21,12 +21,12 @@ const { Content } = await render(post);
 ---
 
 <Metadata
-    title={"fjsn.io • " + post.data.title}
+    title={'fjsn.io • ' + post.data.title}
     description={post.data.description}
     url={import.meta.env.SITE}
     og={{
-	title: post.data.title,
-	image: import.meta.env.SITE + '/posts/' + post.id + '/og.png',
+        title: post.data.title,
+        image: import.meta.env.SITE + '/posts/' + post.id + '/og.png',
         type: 'article',
     }}
 />
