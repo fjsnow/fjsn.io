@@ -41,7 +41,7 @@ export function GET() {
                                         wordWrap: 'break-word',
                                         maxWidth: '100%',
                                     },
-                                    children: "hi, i'm freddy",
+                                    children: "Hi, I'm Freddy",
                                 },
                             },
                         ],
@@ -70,7 +70,7 @@ export function GET() {
                                         maxWidth: '100%',
                                     },
                                     children:
-                                        '20 y/o developer and student from the uk',
+                                        '20 y/o developer and student from the UK.',
                                 },
                             },
                         ],
@@ -104,7 +104,7 @@ export function GET() {
                                 type: 'div',
                                 props: {
                                     style: {
-                                        color: '#2563eb',
+                                        color: '#0268e3',
                                         fontSize: '30px',
                                         fontFamily: 'Roboto Mono',
                                     },

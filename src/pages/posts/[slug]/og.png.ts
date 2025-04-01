@@ -112,7 +112,7 @@ export function GET({ props }: Props) {
                                 type: 'div',
                                 props: {
                                     style: {
-                                        color: '#2563eb',
+                                        color: '#0268e3',
                                         fontSize: '30px',
                                         fontFamily: 'Roboto Mono',
                                     },

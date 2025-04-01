@@ -70,7 +70,7 @@ export function GET() {
                                         maxWidth: '100%',
                                     },
                                     children:
-                                        "are you sure you're in the right place?",
+                                        "Are you sure you're in the right place?",
                                 },
                             },
                         ],
@@ -104,7 +104,7 @@ export function GET() {
                                 type: 'div',
                                 props: {
                                     style: {
-                                        color: '#2563eb',
+                                        color: '#0268e3',
                                         fontSize: '30px',
                                         fontFamily: 'Roboto Mono',
                                     },
