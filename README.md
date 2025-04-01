@@ -16,7 +16,8 @@ published:
 # content
 ```
 
-Description is used for purely SEO purposes currently
+Description is used for purely SEO purposes currently.
+
 Optionally, you can provide `listed: false` in the frontmatter to hide the post from the index and the sitemap. Posts are validated at build time, so you'll get an error if you forget to fill in the required fields.
 
 ## Running the site
