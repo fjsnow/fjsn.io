@@ -1,4 +1,5 @@
 ---
+import Email from './Email.astro';
 import Section from './Section.astro';
 ---
 
@@ -14,9 +15,9 @@ import Section from './Section.astro';
             movies, and (especially) coffee.
         </p>
         <p>
-            If you'd like to reach me, shoot me an email at <a
-                href="mailto:hi@fjsn.io">hi@fjsn.io</a
-            > or send me a message <a href="https://x.com/fjsn_w">@fjsn_w</a>.
+            If you'd like to reach me, shoot me an email at <Email
+                email="hi@fjsn.io"
+            />or send me a message <a href="https://x.com/fjsn_w">@fjsn_w</a>.
         </p>
     </div>
 </Section>

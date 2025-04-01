@@ -51,13 +51,13 @@
         position: relative;
     }
 
-    a:hover {
+    a[href]:hover {
         text-decoration: underline;
     }
 
-    a:not([href^='mailto:']):not([data-footnote-ref]):not(
-            [data-footnote-backref]
-        ):not(:has(img))::after {
+    a:not([href^='mailto:']):not([data-encrypted-email]):not(
+            [data-footnote-ref]
+        ):not([data-footnote-backref]):not(:has(img))::after {
         content: '';
         display: inline-block;
         width: 0.75rem;
