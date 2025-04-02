@@ -8,7 +8,7 @@ import path from 'path';
 const BASE_URL = 'https://fjsn.io';
 
 const unlisted: string[] = [];
-const postsDir = path.join(process.cwd(), 'public', 'posts');
+const postsDir = path.join(process.cwd(), 'src', 'posts');
 for (const file of fs.readdirSync(postsDir)) {
     const filePath = path.join(postsDir, file);
     if (!['.md', '.mdx'].includes(path.extname(file))) continue;

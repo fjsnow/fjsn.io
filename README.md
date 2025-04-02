@@ -2,7 +2,7 @@
 
 This is my personal site, built with [Astro](https://astro.build) and [Bun](https://bun.sh).
 
-Markdown files placed within `public/posts` will be automatically converted to blog posts, with layout and all.
+Markdown files placed within `src/posts` will be automatically converted to blog posts, with layout and all.
 
 ## Post Template
 

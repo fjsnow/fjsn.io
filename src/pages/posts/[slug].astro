@@ -26,7 +26,7 @@ const { Content } = await render(post);
     url={import.meta.env.SITE}
     og={{
         title: post.data.title,
-        image: import.meta.env.SITE + '/posts/' + post.id + '/og.png',
+	image: `${import.meta.env.SITE}/og/posts/${post.id}.png`,
         type: 'article',
     }}
 />
