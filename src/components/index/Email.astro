@@ -5,8 +5,6 @@ interface Props {
 
 const { email } = Astro.props;
 
-const id = 'email-' + Math.random().toString(36).substring(2, 9);
-
 function encrypt(email: String) {
     const pi = '314159265';
     let encrypted = '';
@@ -18,28 +16,19 @@ function encrypt(email: String) {
     return encrypted;
 }
 
-function junk(email: string) {
-    return email
-        .split('')
-        .map((char) => {
-            const hidden = `<span style="display: none;">
-		${Array.from(
-            {
-                length: Math.floor(Math.random() * (16 - 8 + 1)) + 8,
-            },
-            () => String.fromCharCode(Math.floor(Math.random() * 26) + 97)
-        ).join('')}</span>`;
-            return `<span>${char}</span>${hidden}`;
-        })
-        .join('');
+function junk(email: string): string {
+    let html = '';
+    for (let i = 0; i < email.length; i++) {
+        html += `<span>${email[i]}</span>`;
+        for (let j = 0; j < Math.random() * 3 + 1; j++)
+            html += `<span class="hidden">${String.fromCharCode(Math.floor(Math.random() * 26) + 97)}</span>`;
+    }
+
+    return html;
 }
 ---
 
-<a
-    data-encrypted-id={id}
-    data-encrypted-email={encrypt(email)}
-    set:html={junk(email)}
-/>
+<a data-encrypted-email={encrypt(email)} set:html={junk(email)} />
 <script>
     function decrypt(encryptedEmail: String) {
         const pi = '314159265';
@@ -52,13 +41,12 @@ function junk(email: string) {
         return decrypted;
     }
 
-    const emails = document.querySelectorAll('[data-encrypted-id]');
+    const emails = document.querySelectorAll('[data-encrypted-email]');
     emails.forEach((email) => {
         if (!(email instanceof HTMLAnchorElement)) return;
         const decrypted = decrypt(email.dataset.encryptedEmail as string);
         email.innerHTML = decrypted;
         email.href = `mailto:${decrypted}`;
-        email.removeAttribute('data-encrypted-id');
         email.removeAttribute('data-encrypted-email');
     });
 </script>

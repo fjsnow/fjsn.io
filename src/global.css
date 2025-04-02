@@ -91,6 +91,10 @@
         margin-bottom: 1.5rem;
     }
 
+    .table-wrap table {
+        min-width: max-content;
+    }
+
     table tr {
         border-bottom: 1px solid var(--tw-prose-td-borders);
     }
