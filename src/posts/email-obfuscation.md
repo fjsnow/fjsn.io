@@ -55,7 +55,7 @@ function junk(email: string): string {
 
 So far this solution works Javascriptless, visually no different, accessible to screen readers and is copy pastable. With a bit of a tweak to my CSS, notably not underlining on hover when there is no `href` set, I'm happy with the result for non Javascript users, ticking 4/5 of my requirements, only missing the clickable requirement.
 
-![The email address is visibly normal, however using inspect element you can see injected, hidden span tags between the characters](/src/assets/img/email-obfuscation/1.png)
+![The email address is visibly normal, however using inspect element you can see injected, hidden span tags between the characters](@/assets/img/email-obfuscation/1.png)
 
 Next, I wanted to strip the junk characters and add a `mailto` link for users with Javascript enabled. Now for the fun part - you get to write your own "encryption" and "decryption" algorithm! They don't have to be secure, just _unique_ enough that no bot would bother to decrypt it. The effort to decrypt emails would only make sense if it could be applied to a large number of sites, such as attacking Cloudflare's solution, so if anyone would bother to try to automatically decrypt my email, they might as well just open the site themselves.
 
