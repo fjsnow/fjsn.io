@@ -14,15 +14,15 @@ There's common solutions to this problem, including leaving instructions (`remov
 
 <div style="overflow-x: scroll" class="table-wrap">
 
-| Method                     | Accessible | Clickable | Copyable | No JS | Ease to scrape |
-|----------------------------|------------|-----------|----------|-------|----------------|
-| **Plaintext**              | ✅         | ✅        | ✅       | ✅    | 🟥 Easy        |
-| **Instructions**           | ✅         | ❌        | ❌       | ✅    | 🟩 Hard        |
-| **Alternate Symbols**      | ✅         | ❌        | ❌       | ✅    | 🟨 Medium      |
-| **Image**                  | ❌         | ❌        | ❌       | ✅    | 🟩 Hard        |
-| **CSS Pseudo Element**     | ❌         | ❌        | ❌       | ✅    | 🟨 Medium      |
-| **CSS Hidden Content**     | ✅         | ❌        | ✅       | ✅    | 🟨 Medium      |
-| **Decoded by Browser**     | ✅         | ✅        | ✅       | ❌    | 🟩 Hard        |
+| Method                 | Accessible | Clickable | Copyable | No JS | Ease to scrape |
+| ---------------------- | ---------- | --------- | -------- | ----- | -------------- |
+| **Plaintext**          | ✅         | ✅        | ✅       | ✅    | 🟥 Easy        |
+| **Instructions**       | ✅         | ❌        | ❌       | ✅    | 🟩 Hard        |
+| **Alternate Symbols**  | ✅         | ❌        | ❌       | ✅    | 🟨 Medium      |
+| **Image**              | ❌         | ❌        | ❌       | ✅    | 🟩 Hard        |
+| **CSS Pseudo Element** | ❌         | ❌        | ❌       | ✅    | 🟨 Medium      |
+| **CSS Hidden Content** | ✅         | ❌        | ✅       | ✅    | 🟨 Medium      |
+| **Decoded by Browser** | ✅         | ✅        | ✅       | ❌    | 🟩 Hard        |
 
 </div>
 
@@ -92,23 +92,20 @@ function decrypt(encryptedEmail: string): string {
 Now we can use our encryption function during the build phase, attaching the encrypted value as a data attribute on the anchor tag.
 
 ```astro
-<a
-    data-encrypted-email={encrypt(email)}
-    set:html={junk(email)}
-/>
+<a data-encrypted-email={encrypt(email)} set:html={junk(email)} />
 ```
 
 Then when the Javascript loads, it'll decrypt the email, attach the `mailto` attribute, remove the data attribute, and also remove the junk characters for a cleaner DOM.
 
 ```typescript
 const emails = document.querySelectorAll('[data-encrypted-email]');
-    emails.forEach((email) => {
-        if (!(email instanceof HTMLAnchorElement)) return;
-        const decrypted = decrypt(email.dataset.encryptedEmail as string);
-        email.innerHTML = decrypted;
-        email.href = `mailto:${decrypted}`;
-        email.removeAttribute('data-encrypted-email');
-    });
+emails.forEach((email) => {
+    if (!(email instanceof HTMLAnchorElement)) return;
+    const decrypted = decrypt(email.dataset.encryptedEmail as string);
+    email.innerHTML = decrypted;
+    email.href = `mailto:${decrypted}`;
+    email.removeAttribute('data-encrypted-email');
+});
 ```
 
 Finally, I combined this all together into a singular Astro component, passing in an email as a prop.
