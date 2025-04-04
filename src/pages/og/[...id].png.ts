@@ -151,7 +151,6 @@ export async function getStaticPaths() {
                 title: 'Grade Calculator',
                 description:
                     'Grade calculator for 2nd Years in Computer Science at UoB for the 25/26 academic year.',
-
             },
         },
     ];
