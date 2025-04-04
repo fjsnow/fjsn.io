@@ -4,13 +4,17 @@ import { ImageResponse } from '@vercel/og';
 
 interface Props {
     params: { id: string };
-    props: { title: string, description: string };
+    props: { title: string; description: string };
 }
 
 export function GET({ props }: Props) {
     const avatar = fs.readFileSync(path.resolve('src/assets/avatar.png'));
-    const robotoMonoRegular = fs.readFileSync(path.resolve('src/assets/fonts/RobotoMono-Regular.ttf'));
-    const robotoMonoMedium = fs.readFileSync(path.resolve('src/assets/fonts/RobotoMono-Medium.ttf'));
+    const robotoMonoRegular = fs.readFileSync(
+        path.resolve('src/assets/fonts/RobotoMono-Regular.ttf')
+    );
+    const robotoMonoMedium = fs.readFileSync(
+        path.resolve('src/assets/fonts/RobotoMono-Medium.ttf')
+    );
 
     const html = {
         type: 'div',
@@ -32,7 +36,7 @@ export function GET({ props }: Props) {
                             display: 'flex',
                             flexDirection: 'column',
                             maxWidth: '1100px',
-			    marginTop: '100px',
+                            marginTop: '100px',
                         },
                         children: [
                             {
@@ -111,7 +115,7 @@ export function GET({ props }: Props) {
         width: 1200,
         height: 630,
         fonts: [
-	    {
+            {
                 name: 'Roboto Mono Regular',
                 data: Buffer.from(robotoMonoRegular.buffer),
                 style: 'normal',
@@ -127,13 +131,19 @@ export function GET({ props }: Props) {
 
 export async function getStaticPaths() {
     return [
-	{
-	    params: { id: 'index' },
-	    props: { title: 'Freddy Snow', description: '20 y/o student and developer from the UK.' }
-	},
-	{
-	    params: { id: '404' },
-	    props: { title: '404', description: 'Are you sure you\'re in the right place?' }
-	},
-    ]
+        {
+            params: { id: 'index' },
+            props: {
+                title: 'Freddy Snow',
+                description: '20 y/o student and developer from the UK.',
+            },
+        },
+        {
+            params: { id: '404' },
+            props: {
+                title: '404',
+                description: "Are you sure you're in the right place?",
+            },
+        },
+    ];
 }
