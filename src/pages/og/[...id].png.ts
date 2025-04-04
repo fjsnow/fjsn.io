@@ -145,5 +145,13 @@ export async function getStaticPaths() {
                 description: "Are you sure you're in the right place?",
             },
         },
+        {
+            params: { id: 'random/grade-calculator' },
+            props: {
+                title: 'Grade Calculator',
+                description:
+                    'Grade calculator for the 25/26 University of Birmingham CS academic year.',
+            },
+        },
     ];
 }
