@@ -10,12 +10,9 @@ interface Props {
 }
 
 export function GET({ props }: Props) {
-    const { post } = props;
-
     const avatar = fs.readFileSync(path.resolve('src/assets/avatar.png'));
-    const robotoMono = fs.readFileSync(
-        path.resolve('src/assets/fonts/RobotoMono-Medium.ttf')
-    );
+    const robotoMonoRegular = fs.readFileSync(path.resolve('src/assets/fonts/RobotoMono-Regular.ttf'));
+    const robotoMonoMedium = fs.readFileSync(path.resolve('src/assets/fonts/RobotoMono-Medium.ttf'));
 
     const html = {
         type: 'div',
@@ -25,60 +22,47 @@ export function GET({ props }: Props) {
                 width: '100%',
                 height: '100%',
                 display: 'flex',
-                position: 'relative',
+                flexDirection: 'column',
+                padding: '50px 50px',
+                gap: '24px',
             },
             children: [
                 {
                     type: 'div',
                     props: {
                         style: {
-                            position: 'absolute',
-                            top: '110px',
-                            left: '50px',
-                            width: '1100px',
                             display: 'flex',
+                            flexDirection: 'column',
+                            maxWidth: '1100px',
+			    marginTop: '100px',
                         },
                         children: [
                             {
                                 type: 'div',
                                 props: {
                                     style: {
-                                        fontSize: '28px',
-                                        fontFamily: 'Roboto Mono',
-                                        lineHeight: '1.5',
+                                        color: '#57534d',
+                                        fontSize: '32px',
+                                        fontFamily: 'Roboto Mono Regular',
+                                        lineHeight: '1.25',
                                         wordWrap: 'break-word',
                                         maxWidth: '100%',
-                                        color: '#57534d',
                                     },
-                                    children: formatDate(post.data.published),
+                                    children: formatDate(props.post.data.published)
                                 },
                             },
-                        ],
-                    },
-                },
-                {
-                    type: 'div',
-                    props: {
-                        style: {
-                            position: 'absolute',
-                            top: '150px',
-                            left: '50px',
-                            width: '1100px',
-                            display: 'flex',
-                        },
-                        children: [
                             {
                                 type: 'div',
                                 props: {
                                     style: {
                                         color: '#0c0a09',
                                         fontSize: '48px',
-                                        fontFamily: 'Roboto Mono',
+                                        fontFamily: 'Roboto Mono Medium',
                                         lineHeight: '1.25',
                                         wordWrap: 'break-word',
                                         maxWidth: '100%',
                                     },
-                                    children: post.data.title,
+                                    children: props.post.data.title,
                                 },
                             },
                         ],
@@ -88,11 +72,10 @@ export function GET({ props }: Props) {
                     type: 'div',
                     props: {
                         style: {
-                            position: 'absolute',
-                            right: '50px',
-                            bottom: '50px',
+                            marginTop: 'auto',
                             display: 'flex',
                             alignItems: 'center',
+                            justifyContent: 'flex-end',
                         },
                         children: [
                             {
@@ -114,7 +97,7 @@ export function GET({ props }: Props) {
                                     style: {
                                         color: '#0268e3',
                                         fontSize: '30px',
-                                        fontFamily: 'Roboto Mono',
+                                        fontFamily: 'Roboto Mono Medium',
                                     },
                                     children: 'fjsn.io',
                                 },
@@ -130,14 +113,21 @@ export function GET({ props }: Props) {
         width: 1200,
         height: 630,
         fonts: [
+	    {
+                name: 'Roboto Mono Regular',
+                data: Buffer.from(robotoMonoRegular.buffer),
+                style: 'normal',
+            },
             {
-                name: 'Roboto Mono',
-                data: Buffer.from(robotoMono.buffer),
+                name: 'Roboto Mono Medium',
+                data: Buffer.from(robotoMonoMedium.buffer),
                 style: 'normal',
             },
         ],
     });
 }
+
+
 
 export async function getStaticPaths() {
     const blogPosts = await getCollection('posts');
