@@ -1,0 +1,922 @@
+---
+import Root from '@/layouts/Root.astro';
+import Metadata from '@/components/Metadata.astro';
+import Return from '@/components/Return.astro';
+import JavascriptWarning from '@/components/JavascriptWarning.astro';
+
+type Component = {
+    name: string;
+    type: 'continuous' | 'exam';
+    max: number;
+    weight: number;
+};
+
+type Module = {
+    name: string;
+    shortName: string;
+    components: Component[];
+    credits: number;
+};
+
+const modules: Module[] = [
+    {
+        name: 'Operating Systems & Systems Programming',
+        shortName: 'OSSP',
+        components: [
+            {
+                name: 'Maintaining firewall rules',
+                type: 'continuous',
+                weight: 20,
+                max: 100,
+            },
+            {
+                name: 'Summer Exam',
+                type: 'exam',
+                weight: 80,
+                max: 100,
+            },
+        ],
+        credits: 20,
+    },
+    {
+        name: 'Software Engineering and Professional Practice',
+        shortName: 'SEPP',
+        components: [
+            {
+                name: 'The Engineering Design Review',
+                type: 'continuous',
+                weight: 40,
+                max: 40,
+            },
+            {
+                name: 'The Prototype',
+                type: 'continuous',
+                weight: 40,
+                max: 40,
+            },
+            {
+                name: 'The Reflections',
+                type: 'continuous',
+                weight: 20,
+                max: 20,
+            },
+        ],
+        credits: 20,
+    },
+    {
+        name: 'Functional Programming',
+        shortName: 'FP',
+        components: [
+            {
+                name: 'Test 1',
+                type: 'continuous',
+                weight: 40,
+                max: 40,
+            },
+            {
+                name: 'Homework',
+                type: 'continuous',
+                weight: 10,
+                max: 10,
+            },
+            {
+                name: 'Test 2',
+                type: 'continuous',
+                weight: 50,
+                max: 50,
+            },
+        ],
+        credits: 20,
+    },
+    {
+        name: 'Team Project',
+        shortName: 'TP',
+        components: [
+            {
+                name: 'Submission 1',
+                type: 'continuous',
+                weight: 5,
+                max: 1,
+            },
+            {
+                name: 'Milestone 1',
+                type: 'continuous',
+                weight: 10,
+                max: 100,
+            },
+            {
+                name: 'Submission 2',
+                type: 'continuous',
+                weight: 5,
+                max: 1,
+            },
+            {
+                name: 'Milestone 2',
+                type: 'continuous',
+                weight: 15,
+                max: 100,
+            },
+            {
+                name: 'Submission 3',
+                type: 'continuous',
+                weight: 5,
+                max: 1,
+            },
+            {
+                name: 'Milestone 3',
+                type: 'continuous',
+                weight: 15,
+                max: 100,
+            },
+            {
+                name: 'Final product',
+                type: 'continuous',
+                weight: 45,
+                max: 100,
+            },
+        ],
+        credits: 20,
+    },
+    {
+        name: 'Artificial Intelligence 2',
+        shortName: 'AI2',
+        components: [
+            {
+                name: 'Test 1',
+                type: 'continuous',
+                weight: 10,
+                max: 10,
+            },
+            {
+                name: 'Test 2',
+                type: 'continuous',
+                weight: 10,
+                max: 10,
+            },
+            {
+                name: 'Summer Exam',
+                type: 'exam',
+                weight: 80,
+                max: 100,
+            },
+        ],
+        credits: 20,
+    },
+    {
+        name: 'Security & Networks',
+        shortName: 'S&N',
+        components: [
+            {
+                name: 'Crypto',
+                type: 'continuous',
+                weight: 6,
+                max: 4,
+            },
+            {
+                name: 'Protocols',
+                type: 'continuous',
+                weight: 7,
+                max: 2,
+            },
+            {
+                name: 'Web Security',
+                type: 'continuous',
+                weight: 7,
+                max: 5,
+            },
+            {
+                name: 'Summer Exam',
+                type: 'exam',
+                weight: 80,
+                max: 100,
+            },
+        ],
+        credits: 20,
+    },
+];
+---
+
+<Metadata
+    title="Freddy Snow • Grade Calculator"
+    description="Grade calculator for 2nd Years in Computer Science at UoB for the 25/26 academic year."
+    url={import.meta.env.SITE}
+    og={{
+        image: import.meta.env.SITE + '/og/random/grade-calculator.png',
+        type: 'website',
+    }}
+/>
+<Root>
+    <div class="flex max-w-full flex-col gap-6">
+        <Return navigatable={false} />
+        <JavascriptWarning />
+        <div class="prose prose-sm prose-light dark:prose-dark max-w-full">
+            <h1>Grade Calculator</h1>
+            <p>
+                This is a grade calculator for 2nd Years in Computer Science at
+                UoB for the 25/26 academic year. Any mistakes, please contact me
+                or
+                <a href="https://github.com/fjsnow/fjsn.io/issues/new"
+                    >open an issue</a
+                >.
+            </p>
+            <h2>Continuous Assessment</h2>
+            <p>
+                Fill out grades you have received so far. If you have become
+                exempt from a specific assessment, tick "excused", the other CA
+                portions will be proportionally increased. If all of your CA is
+                excused, the exam portion will take over the full weight. This
+                may not be accurate to how the school will grade it.
+            </p>
+            <p>
+                The later calculations may rely on these being filled out, so
+                excuse or estimate the grade an assignment if you haven't
+                recieved it back yet.
+            </p>
+
+            <div style="overflow-x: scroll" class="table-wrap mb-4">
+                <table id="continuous-assessment" class="w-full">
+                    <thead>
+                        <tr>
+                            <th>Module</th>
+                            <th>Component</th>
+                            <th>Weight</th>
+                            <th>Result</th>
+                            <th>Max</th>
+                            <th class="text-center">Excused</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            modules.map((module) =>
+                                module.components
+                                    .filter(
+                                        (component) =>
+                                            component.type === 'continuous'
+                                    )
+                                    .map((component) => (
+                                        <tr
+                                            data-module={module.shortName}
+                                            data-component={component.name}
+                                        >
+                                            <td>{module.shortName}</td>
+                                            <td>{component.name}</td>
+                                            <td>{component.weight}</td>
+                                            <td>
+                                                <input
+                                                    type="number"
+                                                    min={0}
+                                                    max={component.max}
+                                                    class="w-full min-w-[50px] border border-stone-300 pl-1 dark:border-stone-700"
+                                                />
+                                            </td>
+                                            <td>{component.max}</td>
+                                            <td>
+                                                <input
+                                                    type="checkbox"
+                                                    class="w-full"
+                                                />
+                                            </td>
+                                        </tr>
+                                    ))
+                            )
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Per Module Results</h3>
+
+            <p>
+                These modules are fully continuous assessment, so you already
+                know your module result as long as you have at least one non
+                excused grade.
+            </p>
+
+            <div style="overflow-x: auto" class="table-wrap mb-4">
+                <table class="w-full" id="continuous-results">
+                    <thead>
+                        <tr>
+                            <th>Module</th>
+                            <th>Final Grade</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            modules
+                                .filter((module) =>
+                                    module.components.every(
+                                        (comp) => comp.type === 'continuous'
+                                    )
+                                )
+                                .map((module) => (
+                                    <tr data-module={module.shortName}>
+                                        <td>{module.shortName}</td>
+                                        <td class="min-w-[240px]">-</td>
+                                    </tr>
+                                ))
+                        }
+                    </tbody>
+                </table>
+
+                <p>
+                    The following table shows the minimum average exam grade you
+                    need to achieve a certain overall grade in that module. This
+                    is calculated by taking into account the weight of the exam
+                    and the continous assessment components.
+                </p>
+
+                <div style="overflow-x: auto" class="table-wrap mb-2">
+                    <table class="w-full" id="minimum-exam-result">
+                        <thead>
+                            <tr class="!border-b-0">
+                                <th rowspan="2">Module</th>
+                                <th rowspan="2">Grade So Far</th>
+                                <th
+                                    colspan="4"
+                                    class="text-center text-xs !font-normal"
+                                >
+                                    Minimum Exam Result for Overall Grade
+                                </th>
+                            </tr>
+                            <tr class="text-xs">
+                                <th class="px-0 whitespace-nowrap">39.5%</th>
+                                <th class="px-0 whitespace-nowrap">49.5%</th>
+                                <th class="px-0 whitespace-nowrap">59.5%</th>
+                                <th class="px-0 whitespace-nowrap">69.5%</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                modules
+                                    .filter((module) =>
+                                        module.components.some(
+                                            (comp) => comp.type === 'exam'
+                                        )
+                                    )
+                                    .map((module) => (
+                                        <tr data-module={module.shortName}>
+                                            <td>{module.shortName}</td>
+                                            <td>-</td>
+                                            <td class="px-0">-</td>
+                                            <td class="px-0">-</td>
+                                            <td class="px-0">-</td>
+                                            <td class="px-0">-</td>
+                                        </tr>
+                                    ))
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Overall Results</h3>
+
+                <p>
+                    This is the overall classification you will receive for this
+                    year. This is calculated by taking into account the weight
+                    of each module and the average grade across all modules.
+                </p>
+
+                <div style="overflow-x: auto" class="table-wrap mb-4">
+                    <table id="exam-inputs" class="w-full">
+                        <thead>
+                            <tr>
+                                <th>Module</th>
+                                <th>Exam</th>
+                                <th>Result</th>
+                                <th>Max</th>
+                                <th>Module Classification</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                modules
+                                    .filter((module) =>
+                                        module.components.some(
+                                            (comp) => comp.type === 'exam'
+                                        )
+                                    )
+                                    .map((module) =>
+                                        module.components
+                                            .filter(
+                                                (comp) => comp.type === 'exam'
+                                            )
+                                            .map((exam) => (
+                                                <tr
+                                                    data-module={
+                                                        module.shortName
+                                                    }
+                                                    data-component={exam.name}
+                                                >
+                                                    <td>{module.shortName}</td>
+                                                    <td>{exam.name}</td>
+                                                    <td>
+                                                        <input
+                                                            type="number"
+                                                            min={0}
+                                                            max={exam.max}
+                                                            class="w-full min-w-[20px] border border-stone-300 pl-1 dark:border-stone-700"
+                                                        />
+                                                    </td>
+                                                    <td>{exam.max}</td>
+                                                    <td class="min-w-[240px]">
+                                                        -
+                                                    </td>
+                                                </tr>
+                                            ))
+                                    )
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+                <p>
+                    <b>Overall classification:</b>
+                    <span id="overall-classification">-</span>
+                </p>
+            </div>
+        </div>
+    </div>
+</Root>
+<script>
+    interface Component {
+        name: string;
+        type: 'continuous' | 'exam';
+        max: number;
+        weight: number;
+        grade?: number;
+        excused?: boolean;
+    }
+
+    interface Module {
+        name: string;
+        shortName: string;
+        components: Component[];
+        credits: number;
+    }
+
+    const modules: Module[] = [
+        {
+            name: 'Operating Systems & Systems Programming',
+            shortName: 'OSSP',
+            components: [
+                {
+                    name: 'Maintaining firewall rules',
+                    type: 'continuous',
+                    weight: 20,
+                    max: 100,
+                },
+                {
+                    name: 'Summer Exam',
+                    type: 'exam',
+                    weight: 80,
+                    max: 100,
+                },
+            ],
+            credits: 20,
+        },
+        {
+            name: 'Software Engineering and Professional Practice',
+            shortName: 'SEPP',
+            components: [
+                {
+                    name: 'The Engineering Design Review',
+                    type: 'continuous',
+                    weight: 40,
+                    max: 40,
+                },
+                {
+                    name: 'The Prototype',
+                    type: 'continuous',
+                    weight: 40,
+                    max: 40,
+                },
+                {
+                    name: 'The Reflections',
+                    type: 'continuous',
+                    weight: 20,
+                    max: 20,
+                },
+            ],
+            credits: 20,
+        },
+        {
+            name: 'Functional Programming',
+            shortName: 'FP',
+            components: [
+                {
+                    name: 'Test 1',
+                    type: 'continuous',
+                    weight: 40,
+                    max: 40,
+                },
+                {
+                    name: 'Homework',
+                    type: 'continuous',
+                    weight: 10,
+                    max: 10,
+                },
+                {
+                    name: 'Test 2',
+                    type: 'continuous',
+                    weight: 50,
+                    max: 50,
+                },
+            ],
+            credits: 20,
+        },
+        {
+            name: 'Team Project',
+            shortName: 'TP',
+            components: [
+                {
+                    name: 'Submission 1',
+                    type: 'continuous',
+                    weight: 5,
+                    max: 1,
+                },
+                {
+                    name: 'Milestone 1',
+                    type: 'continuous',
+                    weight: 10,
+                    max: 100,
+                },
+                {
+                    name: 'Submission 2',
+                    type: 'continuous',
+                    weight: 5,
+                    max: 1,
+                },
+                {
+                    name: 'Milestone 2',
+                    type: 'continuous',
+                    weight: 15,
+                    max: 100,
+                },
+                {
+                    name: 'Submission 3',
+                    type: 'continuous',
+                    weight: 5,
+                    max: 1,
+                },
+                {
+                    name: 'Milestone 3',
+                    type: 'continuous',
+                    weight: 15,
+                    max: 100,
+                },
+                {
+                    name: 'Final product',
+                    type: 'continuous',
+                    weight: 45,
+                    max: 100,
+                },
+            ],
+            credits: 20,
+        },
+        {
+            name: 'Artificial Intelligence 2',
+            shortName: 'AI2',
+            components: [
+                {
+                    name: 'Test 1',
+                    type: 'continuous',
+                    weight: 10,
+                    max: 10,
+                },
+                {
+                    name: 'Test 2',
+                    type: 'continuous',
+                    weight: 10,
+                    max: 10,
+                },
+                {
+                    name: 'Summer Exam',
+                    type: 'exam',
+                    weight: 80,
+                    max: 100,
+                },
+            ],
+            credits: 20,
+        },
+        {
+            name: 'Security & Networks',
+            shortName: 'S&N',
+            components: [
+                {
+                    name: 'Crypto',
+                    type: 'continuous',
+                    weight: 6,
+                    max: 4,
+                },
+                {
+                    name: 'Protocols',
+                    type: 'continuous',
+                    weight: 7,
+                    max: 2,
+                },
+                {
+                    name: 'Web Security',
+                    type: 'continuous',
+                    weight: 7,
+                    max: 5,
+                },
+                {
+                    name: 'Summer Exam',
+                    type: 'exam',
+                    weight: 80,
+                    max: 100,
+                },
+            ],
+            credits: 20,
+        },
+    ];
+
+    // ---------- CALCULATIONS ----------
+
+    function calculateModuleGrade(module: Module): number | null {
+        const continuous = module.components.filter(
+            (c) => c.type === 'continuous'
+        );
+        const exam = module.components.find((c) => c.type === 'exam');
+
+        const validCA = continuous.filter(
+            (c) => c.grade !== undefined && !c.excused
+        );
+
+        if (validCA.length === 0 && !exam) return null;
+
+        let totalScore = 0;
+        let totalWeight = 0;
+
+        if (validCA.length === 0 && exam?.grade !== undefined) {
+            return (exam.grade / exam.max) * 100;
+        }
+
+        const remainingWeight = exam ? 100 - exam.weight : 100;
+        const weightMultiplier = (() => {
+            const totalCAWeight = continuous
+                .filter((c) => !c.excused)
+                .reduce((sum, c) => sum + c.weight, 0);
+            return totalCAWeight ? remainingWeight / totalCAWeight : 0;
+        })();
+
+        for (const comp of validCA) {
+            const adjustedWeight = comp.weight * weightMultiplier;
+            totalScore += (comp.grade! / comp.max) * adjustedWeight;
+            totalWeight += adjustedWeight;
+        }
+
+        if (exam?.grade !== undefined) {
+            totalScore += (exam.grade / exam.max) * exam.weight;
+            totalWeight += exam.weight;
+        }
+
+        return totalWeight > 0 ? totalScore : null;
+    }
+
+    function calculateWeightedCAGrade(module: Module): number | null {
+        const ca = module.components.filter(
+            (c) =>
+                c.type === 'continuous' &&
+                !c.excused &&
+                typeof c.grade === 'number'
+        );
+        if (ca.length === 0) return null;
+
+        const totalWeight = ca.reduce((sum, c) => sum + c.weight, 0);
+        if (totalWeight === 0) return null;
+
+        const weightedSum = ca.reduce(
+            (sum, c) => sum + (c.grade! / c.max) * 100 * c.weight,
+            0
+        );
+
+        return weightedSum / totalWeight;
+    }
+
+    function calculateMinExamGrade(
+        module: Module,
+        target: number
+    ): number | null {
+        const exam = module.components.find((c) => c.type === 'exam');
+        if (!exam) return null;
+
+        const ca = module.components.filter(
+            (c) =>
+                c.type === 'continuous' && !c.excused && c.grade !== undefined
+        );
+        if (ca.length === 0) return target;
+
+        const totalCAWeight = module.components
+            .filter((c) => c.type === 'continuous' && !c.excused)
+            .reduce((sum, c) => sum + c.weight, 0);
+
+        const weightMultiplier = (100 - exam.weight) / totalCAWeight;
+
+        const caScore = ca.reduce(
+            (sum, c) => sum + (c.grade! / c.max) * c.weight * weightMultiplier,
+            0
+        );
+
+        const requiredExamScore = (target - caScore) / (exam.weight / 100);
+        return Math.max(0, requiredExamScore);
+    }
+
+    function getClassification(grade: number): string {
+        if (grade >= 69.5) return 'First Class';
+        if (grade >= 59.5) return 'Upper Second Class';
+        if (grade >= 49.5) return 'Lower Second Class';
+        if (grade >= 39.5) return 'Third Class';
+        return 'Fail';
+    }
+
+    // ---------- UI SETUP ----------
+
+    function setupUI() {
+        document
+            .querySelectorAll(
+                '#continuous-assessment [data-module][data-component]'
+            )
+            .forEach((row) => setupCAInput(row as HTMLTableRowElement));
+
+        document
+            .querySelectorAll('#exam-inputs [data-module][data-component]')
+            .forEach((row) => setupExamInput(row as HTMLTableRowElement));
+    }
+
+    function setupCAInput(row: HTMLTableRowElement) {
+        const moduleShortName = row.getAttribute('data-module');
+        const componentName = row.getAttribute('data-component');
+        const module = modules.find((m) => m.shortName === moduleShortName);
+        const component = module?.components.find(
+            (c) => c.name === componentName
+        );
+        if (!module || !component) return;
+
+        const gradeInput = row.querySelector(
+            'input[type="number"]'
+        ) as HTMLInputElement;
+        const excusedCheckbox = row.querySelector(
+            'input[type="checkbox"]'
+        ) as HTMLInputElement;
+
+        if (gradeInput?.value)
+            component.grade = gradeInput.value.trim()
+                ? parseFloat(gradeInput.value)
+                : undefined;
+
+        if (excusedCheckbox) component.excused = excusedCheckbox.checked;
+
+        gradeInput.addEventListener('input', () => {
+            component.grade =
+                gradeInput.value.trim() === ''
+                    ? undefined
+                    : parseFloat(gradeInput.value);
+            updateModuleResults(module);
+            updateOverallResults();
+        });
+
+        excusedCheckbox.addEventListener('change', () => {
+            component.excused = excusedCheckbox.checked;
+            updateModuleResults(module);
+            updateOverallResults();
+        });
+    }
+
+    function setupExamInput(row: HTMLTableRowElement) {
+        const moduleShortName = row.getAttribute('data-module');
+        const componentName = row.getAttribute('data-component');
+        const module = modules.find((m) => m.shortName === moduleShortName);
+        const component = module?.components.find(
+            (c) => c.name === componentName
+        );
+        if (!module || !component) return;
+
+        const gradeInput = row.querySelector(
+            'input[type="number"]'
+        ) as HTMLInputElement;
+
+        if (gradeInput?.value)
+            component.grade = gradeInput.value.trim()
+                ? parseFloat(gradeInput.value)
+                : undefined;
+
+        gradeInput.addEventListener('input', () => {
+            component.grade =
+                gradeInput.value.trim() === ''
+                    ? undefined
+                    : parseFloat(gradeInput.value);
+            updateModuleResults(module);
+            updateOverallResults();
+        });
+    }
+
+    // ---------- UI UPDATES ----------
+
+    function updateModuleResults(module: Module) {
+        const grade = calculateModuleGrade(module);
+        const hasExam = module.components.some((c) => c.type === 'exam');
+
+        if (!hasExam) {
+            const row = document.querySelector(
+                `#continuous-results [data-module="${module.shortName}"]`
+            ) as HTMLTableRowElement;
+
+            const allContinousFilled = module.components.every(
+                (comp) => comp.excused || comp.grade !== undefined
+            );
+
+            if (row)
+                row.cells[1].textContent =
+                    grade != null && allContinousFilled
+                        ? `${getClassification(grade)} (${grade.toFixed(2)}%)`
+                        : '-';
+        } else {
+            const minRow = document.querySelector(
+                `#minimum-exam-result [data-module="${module.shortName}"]`
+            ) as HTMLTableRowElement;
+
+            const caGrade = calculateWeightedCAGrade(module);
+            console.log(caGrade);
+
+            const allContinuousFilled = module.components.every(
+                (comp) =>
+                    comp.type !== 'continuous' ||
+                    comp.excused ||
+                    comp.grade !== undefined
+            );
+
+            const allFilled = module.components.every(
+                (comp) => comp.excused || comp.grade !== undefined
+            );
+
+            if (minRow) {
+                minRow.cells[1].textContent =
+                    allContinuousFilled && caGrade
+                        ? `${caGrade.toFixed(2)}%`
+                        : '-';
+                [39.5, 49.5, 59.5, 69.5].forEach((target, i) => {
+                    const min = calculateMinExamGrade(module, target);
+                    minRow.cells[i + 2].textContent =
+                        allContinuousFilled && min !== null && min <= 100
+                            ? `${min.toFixed(2)}%`
+                            : '-';
+                });
+            }
+
+            const examRow = document.querySelector(
+                `#exam-inputs [data-module="${module.shortName}"]`
+            ) as HTMLTableRowElement;
+
+            if (examRow) {
+                examRow.cells[4].textContent =
+                    allFilled && grade !== null
+                        ? `${getClassification(grade)} (${grade.toFixed(2)}%)`
+                        : '-';
+            }
+        }
+    }
+
+    function updateOverallResults() {
+        const totalCredits = modules.reduce((sum, m) => sum + m.credits, 0);
+        let weightedGrade = 0;
+        let completedCredits = 0;
+
+        const allFilled = modules.every((module) =>
+            module.components.every(
+                (comp) => comp.excused || comp.grade !== undefined
+            )
+        );
+
+        modules.forEach((module) => {
+            const grade = calculateModuleGrade(module);
+            if (grade !== null) {
+                weightedGrade += grade * module.credits;
+                completedCredits += module.credits;
+            }
+        });
+
+        const overall =
+            completedCredits == totalCredits
+                ? weightedGrade / completedCredits
+                : null;
+
+        const result = document.getElementById(
+            'overall-classification'
+        ) as HTMLSpanElement;
+
+        if (result) {
+            result.textContent =
+                overall && allFilled
+                    ? getClassification(overall) + ` (${overall.toFixed(2)}%)`
+                    : '-';
+        }
+    }
+    // ---------- INIT ----------
+
+    document.addEventListener('DOMContentLoaded', () => {
+        setupUI();
+        modules.forEach(updateModuleResults);
+        updateOverallResults();
+    });
+</script>
