@@ -150,7 +150,8 @@ export async function getStaticPaths() {
             props: {
                 title: 'Grade Calculator',
                 description:
-                    'Grade calculator for the 25/26 University of Birmingham CS academic year.',
+                    'Grade calculator for 2nd Years in Computer Science at UoB for the 25/26 academic year.',
+
             },
         },
     ];
