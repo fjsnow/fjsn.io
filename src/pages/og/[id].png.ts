@@ -2,9 +2,17 @@ import fs from 'fs';
 import path from 'path';
 import { ImageResponse } from '@vercel/og';
 
-export function GET() {
+interface Props {
+    params: { id: string };
+    props: { title: string; description: string };
+}
+
+export function GET({ props }: Props) {
     const avatar = fs.readFileSync(path.resolve('src/assets/avatar.png'));
-    const robotoMono = fs.readFileSync(
+    const robotoMonoRegular = fs.readFileSync(
+        path.resolve('src/assets/fonts/RobotoMono-Regular.ttf')
+    );
+    const robotoMonoMedium = fs.readFileSync(
         path.resolve('src/assets/fonts/RobotoMono-Medium.ttf')
     );
 
@@ -16,18 +24,19 @@ export function GET() {
                 width: '100%',
                 height: '100%',
                 display: 'flex',
-                position: 'relative',
+                flexDirection: 'column',
+                padding: '50px 50px',
+                gap: '24px',
             },
             children: [
                 {
                     type: 'div',
                     props: {
                         style: {
-                            position: 'absolute',
-                            top: '150px',
-                            left: '50px',
-                            width: '1100px',
                             display: 'flex',
+                            flexDirection: 'column',
+                            maxWidth: '1100px',
+                            marginTop: '100px',
                         },
                         children: [
                             {
@@ -36,41 +45,26 @@ export function GET() {
                                     style: {
                                         color: '#0c0a09',
                                         fontSize: '48px',
-                                        fontFamily: 'Roboto Mono',
+                                        fontFamily: 'Roboto Mono Medium',
                                         lineHeight: '1.25',
                                         wordWrap: 'break-word',
                                         maxWidth: '100%',
                                     },
-                                    children: "Hi, I'm Freddy",
+                                    children: props.title,
                                 },
                             },
-                        ],
-                    },
-                },
-                {
-                    type: 'div',
-                    props: {
-                        style: {
-                            position: 'absolute',
-                            top: '210px',
-                            left: '50px',
-                            width: '1100px',
-                            display: 'flex',
-                        },
-                        children: [
                             {
                                 type: 'div',
                                 props: {
                                     style: {
                                         color: '#57534d',
                                         fontSize: '32px',
-                                        fontFamily: 'Roboto Mono',
+                                        fontFamily: 'Roboto Mono Regular',
                                         lineHeight: '1.25',
                                         wordWrap: 'break-word',
                                         maxWidth: '100%',
                                     },
-                                    children:
-                                        '20 y/o developer and student from the UK.',
+                                    children: props.description,
                                 },
                             },
                         ],
@@ -80,11 +74,10 @@ export function GET() {
                     type: 'div',
                     props: {
                         style: {
-                            position: 'absolute',
-                            right: '50px',
-                            bottom: '50px',
+                            marginTop: 'auto',
                             display: 'flex',
                             alignItems: 'center',
+                            justifyContent: 'flex-end',
                         },
                         children: [
                             {
@@ -106,7 +99,7 @@ export function GET() {
                                     style: {
                                         color: '#0268e3',
                                         fontSize: '30px',
-                                        fontFamily: 'Roboto Mono',
+                                        fontFamily: 'Roboto Mono Medium',
                                     },
                                     children: 'fjsn.io',
                                 },
@@ -123,10 +116,34 @@ export function GET() {
         height: 630,
         fonts: [
             {
-                name: 'Roboto Mono',
-                data: Buffer.from(robotoMono.buffer),
+                name: 'Roboto Mono Regular',
+                data: Buffer.from(robotoMonoRegular.buffer),
+                style: 'normal',
+            },
+            {
+                name: 'Roboto Mono Medium',
+                data: Buffer.from(robotoMonoMedium.buffer),
                 style: 'normal',
             },
         ],
     });
+}
+
+export async function getStaticPaths() {
+    return [
+        {
+            params: { id: 'index' },
+            props: {
+                title: 'Freddy Snow',
+                description: '20 y/o student and developer from the UK.',
+            },
+        },
+        {
+            params: { id: '404' },
+            props: {
+                title: '404',
+                description: "Are you sure you're in the right place?",
+            },
+        },
+    ];
 }
