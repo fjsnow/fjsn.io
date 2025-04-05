@@ -7,7 +7,7 @@ import path from 'path';
 
 const BASE_URL = 'https://fjsn.io';
 
-const unlisted: string[] = [];
+const listed: string[] = [];
 const postsDir = path.join(process.cwd(), 'src', 'posts');
 for (const file of fs.readdirSync(postsDir)) {
     const filePath = path.join(postsDir, file);
@@ -17,9 +17,9 @@ for (const file of fs.readdirSync(postsDir)) {
     const [_, yamlData] = content.split('---');
     const metadata = (yaml.load(yamlData) || {}) as { listed?: boolean };
 
-    if (metadata.listed === false) {
+    if (!metadata.listed || metadata.listed === true) {
         const slug = file.replace(/\.(mdx?)/, '');
-        unlisted.push(`${BASE_URL}/posts/${slug}/`);
+        listed.push(`${BASE_URL}/posts/${slug}/`);
     }
 }
 
@@ -30,7 +30,7 @@ export default defineConfig({
     experimental: { svg: true },
     integrations: [
         sitemap({
-            filter: (page) => !unlisted.includes(page),
+            filter: (page) => listed.includes(page) || page === `${BASE_URL}/`,
         }),
     ],
 });
