@@ -4,11 +4,14 @@ import Warning from '@/assets/icons/warning.svg';
 
 <noscript>
     <div
-        class="relative flex flex-row items-center gap-2 rounded border border-dashed border-yellow-400 bg-yellow-200 p-4"
+        class="relative flex flex-row items-center gap-2 rounded border border-dashed border-yellow-400 bg-yellow-200 p-4 dark:border-yellow-700 dark:bg-yellow-500"
         role="alert"
     >
-        <Warning class="h-5 w-5 text-yellow-700" aria-label="Github" />
-        <p class="text-sm text-yellow-700">
+        <Warning
+            class="h-5 w-5 text-yellow-700 dark:text-yellow-900"
+            aria-label="Github"
+        />
+        <p class="text-sm text-yellow-700 dark:text-yellow-900">
             <span class="font-bold">Warning:</span> This page requires JavaScript
             to function.
         </p>
