@@ -25,6 +25,7 @@ for (const file of fs.readdirSync(postsDir)) {
 
 export default defineConfig({
     site: BASE_URL,
+    prefetch: true,
     vite: { plugins: [tailwindcss()] },
     markdown: { shikiConfig: { theme: 'houston' } },
     experimental: { svg: true },
