@@ -17,7 +17,7 @@ for (const file of fs.readdirSync(postsDir)) {
     const [_, yamlData] = content.split('---');
     const metadata = (yaml.load(yamlData) || {}) as { listed?: boolean };
 
-    if (!metadata.listed || metadata.listed === true) {
+    if (metadata.listed == undefined || metadata.listed === true) {
         const slug = file.replace(/\.(mdx?)/, '');
         listed.push(`${BASE_URL}/posts/${slug}/`);
     }
