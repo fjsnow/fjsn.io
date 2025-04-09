@@ -22,7 +22,7 @@ const { Content } = await render(post);
 <Metadata
     title={'Freddy Snow • ' + post.data.title}
     description={post.data.description}
-    url={import.meta.env.SITE + "/posts/" + post.id + "/"}
+    url={import.meta.env.SITE + '/posts/' + post.id + '/'}
     og={{
         title: post.data.title,
         image: `${import.meta.env.SITE}/og/posts/${post.id}.png`,
