@@ -10,11 +10,11 @@
         "format:check": "prettier --check ."
     },
     "dependencies": {
-        "@astrojs/sitemap": "^3.3.0",
+        "@astrojs/sitemap": "^3.3.1",
         "@fontsource-variable/roboto-mono": "^5.2.5",
         "@tailwindcss/vite": "^4.1.4",
         "@vercel/og": "^0.6.8",
-        "astro": "^5.7.0",
+        "astro": "^5.7.5",
         "tailwindcss": "^4.1.4"
     },
     "devDependencies": {
