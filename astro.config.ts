@@ -28,7 +28,6 @@ export default defineConfig({
     prefetch: true,
     vite: { plugins: [tailwindcss()] },
     markdown: { shikiConfig: { theme: 'houston' } },
-    experimental: { svg: true },
     integrations: [
         sitemap({
             filter: (page) => listed.includes(page) || page === `${BASE_URL}/`,
