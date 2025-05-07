@@ -18,9 +18,10 @@ Then a custom script is ran to add the `dark` class to the `html` based upon the
 
 ```javascript
 document.documentElement.classList.toggle(
-  "dark",
-  localStorage.theme === "dark" ||
-    (!("theme" in localStorage) && window.matchMedia("(prefers-color-scheme: dark)").matches),
+    'dark',
+    localStorage.theme === 'dark' ||
+        (!('theme' in localStorage) &&
+            window.matchMedia('(prefers-color-scheme: dark)').matches)
 );
 ```
 
@@ -38,7 +39,6 @@ if (theme) document.documentElement.setAttribute('data-theme', theme);
 Now, in the CSS, I use the custom attribute to show dark mode in two situations: If the user has selected dark mode, or if the user has not set a preference and their system preference is dark.
 
 ```css
-
 @custom-variant dark {
     &:where([data-theme='dark'] *) {
         @slot;
@@ -54,10 +54,7 @@ Now, in the CSS, I use the custom attribute to show dark mode in two situations:
 Finally, I needed a way for the user to select the theme. Going with the progressive enhancement approach, I added a button only visible to Javascript users (Using a sneaky CSS class `js-only` that is declared within a `<noscript>` tag).
 
 ```html
-<div
-    class="js-only relative h-4 w-4 cursor-pointer gap-2"
-    id="theme-toggle"
->
+<div class="js-only relative h-4 w-4 cursor-pointer gap-2" id="theme-toggle">
     <Light
         class="absolute top-0 left-0 z-10 block h-4 w-4 text-stone-500 hover:text-stone-700 dark:hidden"
         aria-label="Enable dark mode"
