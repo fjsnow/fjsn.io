@@ -1,17 +1,53 @@
 ---
-import Link from '@/assets/icons/link.svg';
+import Github from '@/assets/icons/github.svg';
+import Light from '@/assets/icons/theme/light.svg';
+import Dark from '@/assets/icons/theme/dark.svg';
+
 const year = new Date().getFullYear();
 ---
 
 <div
-    class="mt-8 flex items-center justify-center gap-2 text-sm text-stone-500 sm:mt-16 dark:text-stone-400"
+    class="mt-8 flex items-center justify-between gap-2 text-sm text-stone-500 sm:mt-16 dark:text-stone-400"
 >
-    <span>© {year} Freddy Snow - </span>
-    <a
-        href="https://github.com/fjsnow/fjsn.io"
-        class="flex items-center gap-2 hover:text-stone-700 dark:hover:text-stone-300"
-    >
-        <span>Source Code</span>
-        <Link class="h-3 w-3" aria-hidden />
-    </a>
+    <span>© {year} Freddy Snow</span>
+    <div class="flex flex-row gap-2">
+        <a
+            href="https://github.com/fjsnow/fjsn.io"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="h-fit text-stone-500 hover:text-stone-700 dark:text-stone-400 dark:hover:text-stone-300"
+            aria-label="Github repository"
+        >
+            <Github class="h-4 w-4" aria-label="Github" />
+        </a>
+        <div
+            class="js-only relative h-4 w-4 cursor-pointer gap-2"
+            id="theme-toggle"
+        >
+            <Light
+                class="absolute top-0 left-0 z-10 block h-4 w-4 text-stone-500 hover:text-stone-700 dark:hidden"
+                aria-label="Enable dark mode"
+            />
+            <Dark
+                class="absolute top-0 left-0 z-10 hidden h-4 w-4 text-stone-400 hover:text-stone-300 dark:block"
+                aria-label="Enable light mode"
+            />
+        </div>
+    </div>
 </div>
+<script>
+    const toggle = () => {
+        const theme =
+            localStorage.getItem('theme') ||
+            (window.matchMedia('(prefers-color-scheme: dark)').matches
+                ? 'dark'
+                : 'light');
+
+        let next = theme === 'light' ? 'dark' : 'light';
+        localStorage.setItem('theme', next);
+        document.documentElement.setAttribute('data-theme', next);
+    };
+
+    const themeToggle = document.getElementById('theme-toggle')!;
+    themeToggle.addEventListener('click', toggle);
+</script>

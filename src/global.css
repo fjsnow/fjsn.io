@@ -2,6 +2,17 @@
 @plugin "@tailwindcss/typography";
 @config "../tailwind.config.mjs";
 
+@custom-variant dark {
+    &:where([data-theme='dark'] *) {
+        @slot;
+    }
+    @media (prefers-color-scheme: dark) {
+        &:where(:not([data-theme='light'] *)) {
+            @slot;
+        }
+    }
+}
+
 @import '@fontsource-variable/roboto-mono';
 
 @theme {
