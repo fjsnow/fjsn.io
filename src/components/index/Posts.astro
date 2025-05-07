@@ -3,9 +3,9 @@ import Section from './Section.astro';
 import Post from './Post.astro';
 import { getCollection } from 'astro:content';
 
-const posts = (await getCollection('posts')).filter(
-    (post) => post.data.listed !== false
-);
+const posts = (await getCollection('posts'))
+    .filter((post) => post.data.listed !== false)
+    .sort((a, b) => b.data.published.getTime() - a.data.published.getTime());
 ---
 
 <Section title="posts">
