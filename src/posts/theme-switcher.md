@@ -25,9 +25,9 @@ document.documentElement.classList.toggle(
 );
 ```
 
-This sadly breaks the functionality for Javascriptless users, and even if you do have Javascript, the site won't update if you change your system preference, as the script only runs on page load.
+This sadly breaks the functionality for Javascript-less users, and even if you do have Javascript, the site won't update if you change your system preference, as the script only runs on page load.
 
-When searching for a solution, I wanted to build a hybrid solution between the class and the media query, however I quickly realised that not enough information is maintained for the CSS to know if the user has selected a theme or not, as if the `dark` class is omitted, this could either mean a Javascriptless user, or a user who has chosen light mode.
+When searching for a solution, I wanted to build a hybrid solution between the class and the media query, however I quickly realised that not enough information is maintained for the CSS to know if the user has selected a theme or not, as if the `dark` class is omitted, this could either mean a Javascript-less user, or a user who has chosen light mode.
 
 I opted to rather use a custom attribute on the HTML, giving the CSS enough context to know which theme to show. On the page load, I check whether the user has a preference set in local storage and set the attribute accordingly. I don't set the attribute if the user has no preference set yet.
 
