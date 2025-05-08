@@ -4,7 +4,7 @@ description: A theme switcher that allows users to choose between light and dark
 published: 05-08-2025
 ---
 
-I've designed my site to be JavaScript-free first, then progressively enhanced with JavaScript. Although my site has supported both light and dark themes based upon your systems preference for a while, I wanted to add a theme switcher for JavaScript users to allow users to swap easily between the two on just my site, while still defaulting to the system preference.
+I've designed my site to be JavaScript-free first, then progressively enhanced with JavaScript. Although my site has supported both light and dark themes based upon your systems preference for a while, I wanted to add a theme switcher to allow JavaScript users to swap easily between the two on just my site, while still defaulting to the system preference.
 
 As I use [Tailwind](https://tailwindcss.com/) for styling, I already was using the `dark:` prefix to conditionally apply dark mode styles. By default in Tailwind v4 this applies styles based upon a media query, which works perfectly for JavaScript and non JavaScript users alike. However, their [guide](https://tailwindcss.com/docs/dark-mode) for implementing a theme switcher with a system preference fallback is not progressively enhanced, and JavaScript-less users are left being always in light mode regardless of their system preference.
 
