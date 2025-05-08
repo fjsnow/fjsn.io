@@ -4,9 +4,9 @@ description: A theme switcher that allows users to choose between light and dark
 published: 05-08-2025
 ---
 
-I've designed my site to be Javascript-free first, then progressively enhanced with JavaScript. Although my personal site has supported both light and dark themes based upon your systems preference for a while, I wanted to add a theme switcher to allow users to swap easily between the two on just my site, which defaulted to the system preference.
+I've designed my site to be JavaScript-free first, then progressively enhanced with JavaScript. Although my site has supported both light and dark themes based upon your systems preference for a while, I wanted to add a theme switcher for JavaScript users to allow users to swap easily between the two on just my site, while still defaulting to the system preference.
 
-As I use [Tailwind](https://tailwindcss.com/) for styling, I already was using the `dark:` prefix to conditionally apply dark mode styles. By default in Tailwind v4 this applies styles based upon a media query, which works perfectly for JavaScript and non JavaScript users alike. However, their [guide](https://tailwindcss.com/docs/dark-mode) for implementing a theme switcher with a system prefernece fallback is not progressively enhanced, and JavaScript-less users are left being always in light mode regardless of their system preference.
+As I use [Tailwind](https://tailwindcss.com/) for styling, I already was using the `dark:` prefix to conditionally apply dark mode styles. By default in Tailwind v4 this applies styles based upon a media query, which works perfectly for JavaScript and non JavaScript users alike. However, their [guide](https://tailwindcss.com/docs/dark-mode) for implementing a theme switcher with a system preference fallback is not progressively enhanced, and JavaScript-less users are left being always in light mode regardless of their system preference.
 
 Their solution is to attach a special `dark` class to the `html` element then override the default custom-variant dark with a CSS selector.
 
@@ -14,7 +14,7 @@ Their solution is to attach a special `dark` class to the `html` element then ov
 @custom-variant dark (&:where(.dark, .dark *));
 ```
 
-Then a custom script is ran to add the `dark` class to the `html` based upon the user's preference, falling back to the system preference if no preference is set.
+Then a custom script is ran to add the `dark` class to the `html` based upon the user's preference on page load, falling back to the system preference if no preference is set.
 
 ```javascript
 document.documentElement.classList.toggle(
@@ -25,9 +25,9 @@ document.documentElement.classList.toggle(
 );
 ```
 
-This sadly breaks the functionality for Javascript-less users, and even if you do have Javascript, the site won't update if you change your system preference, as the script only runs on page load.
+This sadly breaks the functionality for JavaScript-less users, and even if you do have JavaScript, the site won't update if you change your system preference, as the script only runs on page load.
 
-When searching for a solution, I wanted to build a hybrid solution between the class and the media query, however I quickly realised that not enough information is maintained for the CSS to know if the user has selected a theme or not, as if the `dark` class is omitted, this could either mean a Javascript-less user, or a user who has chosen light mode.
+When searching for a solution, I wanted to build a hybrid solution between the class and the media query, however I quickly realised that not enough information is maintained in the DOM for the CSS to know if the user has selected a theme or not, as if the `dark` class is omitted, this could either mean a JavaScript-less user, or a user who has chosen light mode.
 
 I opted to rather use a custom attribute on the HTML, giving the CSS enough context to know which theme to show. On the page load, I check whether the user has a preference set in local storage and set the attribute accordingly. I don't set the attribute if the user has no preference set yet.
 
@@ -51,7 +51,7 @@ Now, in the CSS, I use the custom attribute to show dark mode in two situations:
 }
 ```
 
-Finally, I needed a way for the user to select the theme. Going with the progressive enhancement approach, I added a button only visible to Javascript users (Using a sneaky CSS class `js-only` that is declared within a `<noscript>` tag).
+Finally, I needed a way for the user to select the theme. Going with the progressive enhancement approach, I added a button only visible to JavaScript users (Using a sneaky CSS class `js-only` that is declared within a `<noscript>` tag).
 
 ```html
 <div class="js-only relative h-4 w-4 cursor-pointer gap-2" id="theme-toggle">
@@ -82,4 +82,4 @@ Finally, I needed a way for the user to select the theme. Going with the progres
 </script>
 ```
 
-The end product is a theme switcher with system preference fallback that works flawlessly for JavaScript users, with no negative impact on the experience for JavaScriptless users.
+The end product is a theme switcher with system preference fallback that works flawlessly for JavaScript users, with no negative impact on the experience for JavaScript-less users.
