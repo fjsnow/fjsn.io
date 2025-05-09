@@ -1,0 +1,87 @@
+<div
+    class="listening-status flex items-center text-sm text-stone-500 dark:text-stone-400"
+>
+    <span id="not-listening">cs student</span>
+    <div id="listening" class="hidden items-center gap-2">
+        <span>Listening to</span>
+        <a
+            id="spotify-link"
+            class="flex items-center overflow-hidden rounded-sm bg-stone-200 text-stone-500 hover:bg-stone-300 dark:bg-stone-800 dark:text-stone-400 dark:hover:bg-stone-700"
+            href="#"
+        >
+            <img
+                id="album-art"
+                src=""
+                alt="Album art"
+                class="z-10 h-5 w-5 rounded-sm"
+            />
+            <span class="mx-1 flex flex-col">
+                <span id="song-name"></span>
+            </span>
+        </a>
+    </div>
+</div>
+<script>
+    const DISCORD_ID = '351059285754642463';
+    const socket = new WebSocket('wss://api.lanyard.rest/socket');
+    let heartbeatInterval: number;
+
+    socket.addEventListener('open', () => {
+        socket.send(
+            JSON.stringify({
+                op: 2,
+                d: { subscribe_to_id: DISCORD_ID },
+            })
+        );
+    });
+
+    socket.addEventListener('message', (event) => {
+        const data = JSON.parse(event.data);
+
+        if (data.op === 1) {
+            const interval = data.d.heartbeat_interval;
+            heartbeatInterval = setInterval(() => {
+                socket.send(JSON.stringify({ op: 3 }));
+            }, interval);
+        }
+
+        if (data.t !== 'PRESENCE_UPDATE' && data.t !== 'INIT_STATE') return;
+
+        const spotify = data.d.spotify;
+        const notListening = document.getElementById(
+            'not-listening'
+        ) as HTMLSpanElement;
+        const listening = document.getElementById(
+            'listening'
+        ) as HTMLDivElement;
+        const spotifyLink = document.getElementById(
+            'spotify-link'
+        ) as HTMLAnchorElement;
+        const albumArt = document.getElementById(
+            'album-art'
+        ) as HTMLImageElement;
+        const songName = document.getElementById(
+            'song-name'
+        ) as HTMLSpanElement;
+
+        if (!spotify) {
+            notListening.classList.remove('hidden');
+            listening.classList.remove('flex');
+            listening.classList.add('hidden');
+            return;
+        }
+
+        notListening.classList.add('hidden');
+        listening.classList.remove('hidden');
+        listening.classList.add('flex');
+
+        spotifyLink.href = `https://open.spotify.com/track/${spotify.track_id}`;
+
+        albumArt.src = spotify.album_art_url;
+        songName.textContent = spotify.song;
+    });
+
+    socket.addEventListener('close', () => {
+        clearInterval(heartbeatInterval);
+    });
+</script>
