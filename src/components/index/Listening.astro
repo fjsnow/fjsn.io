@@ -1,15 +1,12 @@
 <div
     class="listening-status js-only flex h-5 items-center text-sm text-stone-500 dark:text-stone-400"
 >
-    <span class="mr-2 min-w-fit">Listening to</span>
+    <span class="mr-2 min-w-fit">listening to</span>
     <div id="skeleton" class="flex animate-pulse items-center">
         <div class="h-5 w-32 rounded-sm bg-stone-300 dark:bg-stone-700">
             <div class="h-5 w-5 rounded-sm bg-stone-400 dark:bg-stone-600">
             </div>
         </div>
-    </div>
-    <div id="not-listening" class="hidden text-stone-500 dark:text-stone-400">
-        nothing
     </div>
     <div id="listening" class="hidden items-center gap-2 overflow-hidden">
         <a
@@ -29,6 +26,9 @@
                     class="truncate overflow-hidden whitespace-nowrap"></span>
             </span>
         </a>
+    </div>
+    <div id="not-listening" class="hidden text-stone-500 dark:text-stone-400">
+        nothing
     </div>
     <div
         id="listening"
@@ -53,6 +53,7 @@
             </span>
         </a>
     </div>
+    <div class="ml-2 text-stone-500 dark:text-stone-400">atm</div>
 </div>
 <script>
     const DISCORD_ID: string = '351059285754642463';
