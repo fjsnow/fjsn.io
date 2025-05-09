@@ -7,7 +7,7 @@ const year = new Date().getFullYear();
 ---
 
 <div
-    class="mt-8 flex items-center justify-between gap-2 text-sm text-stone-500 sm:mt-16 dark:text-stone-400"
+    class="mt-8 flex flex-col justify-between gap-2 text-sm text-stone-500 sm:mt-16 sm:flex-row sm:items-center dark:text-stone-400"
 >
     <span>© {year} Freddy Snow</span>
     <div class="flex flex-row gap-2">
@@ -15,21 +15,21 @@ const year = new Date().getFullYear();
             href="https://github.com/fjsnow/fjsn.io"
             target="_blank"
             rel="noopener noreferrer"
-            class="h-fit text-stone-500 hover:text-stone-700 dark:text-stone-400 dark:hover:text-stone-300"
             aria-label="Github repository"
+            class="group relative flex h-6 w-6 cursor-pointer items-center justify-center gap-2 rounded-sm text-stone-500 group-hover:text-stone-700 hover:bg-stone-200 dark:text-stone-400 dark:group-hover:text-stone-300 dark:hover:bg-stone-800"
         >
             <Github class="h-4 w-4" aria-label="Github" />
         </a>
         <div
-            class="js-only relative h-4 w-4 cursor-pointer gap-2"
+            class="js-only group relative h-6 w-6 cursor-pointer gap-2 rounded-sm hover:bg-stone-200 dark:hover:bg-stone-800"
             id="theme-toggle"
         >
             <Light
-                class="absolute top-0 left-0 z-10 block h-4 w-4 text-stone-500 hover:text-stone-700 dark:hidden"
+                class="absolute top-1 left-1 z-10 block h-4 w-4 text-stone-500 group-hover:text-stone-700 dark:hidden"
                 aria-label="Enable dark mode"
             />
             <Dark
-                class="absolute top-0 left-0 z-10 hidden h-4 w-4 text-stone-400 hover:text-stone-300 dark:block"
+                class="absolute top-1 left-1 z-10 hidden h-4 w-4 text-stone-400 group-hover:text-stone-300 dark:block"
                 aria-label="Enable light mode"
             />
         </div>
