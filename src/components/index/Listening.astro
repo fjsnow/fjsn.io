@@ -1,0 +1,127 @@
+<div
+    class="listening-status js-only flex h-5 items-center text-sm text-stone-500 dark:text-stone-400"
+>
+    <span class="mr-2 min-w-fit">listening to</span>
+    <div id="skeleton" class="flex animate-pulse items-center">
+        <div class="h-5 w-32 rounded-sm bg-stone-300 dark:bg-stone-700">
+            <div class="h-5 w-5 rounded-sm bg-stone-400 dark:bg-stone-600">
+            </div>
+        </div>
+    </div>
+    <div id="listening" class="hidden items-center gap-2 overflow-hidden">
+        <a
+            id="spotify-link"
+            class="flex flex-grow items-center overflow-hidden rounded-sm bg-stone-200 text-stone-500 hover:bg-stone-300 dark:bg-stone-800 dark:text-stone-400 dark:hover:bg-stone-700"
+            href="#"
+        >
+            <img
+                id="album-art"
+                src=""
+                alt="Album art"
+                class="h-5 w-5 flex-shrink-0 rounded-sm"
+            />
+            <span class="mx-1 flex flex-col overflow-hidden">
+                <span
+                    id="song-name"
+                    class="truncate overflow-hidden whitespace-nowrap"></span>
+            </span>
+        </a>
+    </div>
+    <div id="not-listening" class="hidden text-stone-500 dark:text-stone-400">
+        nothing
+    </div>
+    <div
+        id="listening"
+        class="hidden w-full items-center gap-2 overflow-hidden"
+    >
+        <a
+            id="spotify-link"
+            class="flex w-full items-center overflow-hidden rounded-sm bg-stone-200 text-stone-500 hover:bg-stone-300 dark:bg-stone-800 dark:text-stone-400 dark:hover:bg-stone-700"
+            href="#"
+        >
+            <img
+                id="album-art"
+                src=""
+                alt="Album art"
+                class="z-10 ml-1 h-5 w-5 flex-shrink-0 rounded-sm"
+            />
+            <span class="mx-2 flex w-full flex-col overflow-hidden">
+                <span
+                    id="song-name"
+                    class="w-full truncate overflow-hidden whitespace-nowrap"
+                ></span>
+            </span>
+        </a>
+    </div>
+    <div class="ml-2 text-stone-500 dark:text-stone-400">atm</div>
+</div>
+<script>
+    const DISCORD_ID: string = '351059285754642463';
+    const socket: WebSocket = new WebSocket('wss://api.lanyard.rest/socket');
+    let heartbeatInterval: ReturnType<typeof setInterval>;
+
+    socket.addEventListener('open', (): void => {
+        socket.send(
+            JSON.stringify({
+                op: 2,
+                d: { subscribe_to_id: DISCORD_ID },
+            })
+        );
+    });
+
+    socket.addEventListener('message', (event: MessageEvent): void => {
+        const data = JSON.parse(event.data);
+
+        if (data.op === 1) {
+            const interval: number = data.d.heartbeat_interval;
+            heartbeatInterval = setInterval((): void => {
+                socket.send(JSON.stringify({ op: 3 }));
+            }, interval);
+        }
+
+        if (data.t !== 'PRESENCE_UPDATE' && data.t !== 'INIT_STATE') return;
+
+        const spotify = data.d.spotify;
+
+        const skeleton: HTMLElement = document.getElementById(
+            'skeleton'
+        ) as HTMLElement;
+        skeleton.classList.remove('flex');
+        skeleton.classList.add('hidden');
+
+        const notListening: HTMLElement = document.getElementById(
+            'not-listening'
+        ) as HTMLElement;
+        const listening: HTMLElement = document.getElementById(
+            'listening'
+        ) as HTMLElement;
+        const spotifyLink: HTMLAnchorElement = document.getElementById(
+            'spotify-link'
+        ) as HTMLAnchorElement;
+        const albumArt: HTMLImageElement = document.getElementById(
+            'album-art'
+        ) as HTMLImageElement;
+        const songName: HTMLElement = document.getElementById(
+            'song-name'
+        ) as HTMLElement;
+
+        if (!spotify) {
+            listening.classList.add('hidden');
+            notListening.classList.remove('hidden');
+            return;
+        }
+
+        listening.classList.remove('hidden');
+        listening.classList.add('flex');
+        notListening.classList.add('hidden');
+
+        spotifyLink.href = `https://open.spotify.com/track/${spotify.track_id}`;
+        albumArt.src =
+            'https://wsrv.nl/?url=' + spotify.album_art_url + '&w=80&h=80';
+        songName.textContent = spotify.song;
+    });
+
+    socket.addEventListener('close', (): void => {
+        clearInterval(heartbeatInterval);
+    });
+</script>

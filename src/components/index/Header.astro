@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import Avatar from '@/assets/avatar.png';
+import Listening from '@/components/index/Listening.astro';
 ---
 
 <div class="flex flex-row items-center justify-between gap-4">
@@ -16,11 +17,6 @@ import Avatar from '@/assets/avatar.png';
             />
             <span class="font-semibold">Freddy Snow</span>
         </div>
-        <span class="text-sm text-stone-500 dark:text-stone-400">
-            cs student at <a
-                href="https://birmingham.ac.uk"
-                class="hover:text-stone-700 dark:hover:text-stone-300">uob</a
-            > (uk)
-        </span>
+        <Listening />
     </div>
 </div>
