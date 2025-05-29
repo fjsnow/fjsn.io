@@ -14,10 +14,10 @@
         "@astrojs/check": "^0.9.4",
         "@astrojs/sitemap": "^3.4.0",
         "@fontsource-variable/roboto-mono": "^5.2.5",
-        "@tailwindcss/vite": "^4.1.7",
+        "@tailwindcss/vite": "^4.1.8",
         "@vercel/og": "^0.6.8",
         "astro": "^5.8.0",
-        "tailwindcss": "^4.1.7",
+        "tailwindcss": "^4.1.8",
         "typescript": "^5.8.3"
     },
     "devDependencies": {
