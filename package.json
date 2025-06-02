@@ -13,7 +13,7 @@
     "dependencies": {
         "@astrojs/check": "^0.9.4",
         "@astrojs/sitemap": "^3.4.0",
-        "@fontsource-variable/roboto-mono": "^5.2.5",
+        "@fontsource-variable/roboto-mono": "^5.2.6",
         "@tailwindcss/vite": "^4.1.8",
         "@vercel/og": "^0.6.8",
         "astro": "^5.8.1",
@@ -24,6 +24,6 @@
         "@tailwindcss/typography": "^0.5.16",
         "@types/js-yaml": "^4.0.9",
         "prettier-plugin-astro": "^0.14.1",
-        "prettier-plugin-tailwindcss": "^0.6.11"
+        "prettier-plugin-tailwindcss": "^0.6.12"
     }
 }
