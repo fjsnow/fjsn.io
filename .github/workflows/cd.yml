@@ -19,7 +19,6 @@ jobs:
             - name: Build
               run: bun run build
 
-            - uses: actions/checkout@v4
             - name: Build & Deploy Worker
               uses: cloudflare/wrangler-action@v3
               with:
