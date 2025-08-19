@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { ImageResponse } from '@vercel/og';
+import type { GetStaticPathsResult } from 'astro';
 
 interface Props {
     params: { id: string };
@@ -129,7 +130,7 @@ export function GET({ props }: Props) {
     });
 }
 
-export async function getStaticPaths() {
+export async function getStaticPaths(): Promise<GetStaticPathsResult> {
     return [
         {
             params: { id: 'index' },
