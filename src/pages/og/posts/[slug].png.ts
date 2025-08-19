@@ -3,6 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import { ImageResponse } from '@vercel/og';
 import { formatDate } from '@/lib/post';
+import type { GetStaticPathsResult } from 'astro';
 
 interface Props {
     params: { slug: string };
@@ -133,7 +134,7 @@ export function GET({ props }: Props) {
     });
 }
 
-export async function getStaticPaths() {
+export async function getStaticPaths(): Promise<GetStaticPathsResult> {
     const blogPosts = await getCollection('posts');
     return blogPosts.map((post) => ({
         params: { slug: post.id },

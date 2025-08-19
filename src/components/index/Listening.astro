@@ -17,7 +17,6 @@
             <img
                 id="album-art"
                 src=""
-                alt="Album art"
                 class="h-5 w-5 flex-shrink-0 rounded-sm"
             />
             <span class="mx-1 flex flex-col overflow-hidden">
@@ -70,6 +69,7 @@
 
         spotifyLink.href = `https://open.spotify.com/track/${spotify.track_id}`;
         albumArt.src = `https://wsrv.nl/?url=${spotify.album_art_url}&w=80&h=80`;
+        albumArt.alt = `Album art for ${spotify.song} by ${spotify.artist}`;
         songName.textContent = spotify.song;
     }
 

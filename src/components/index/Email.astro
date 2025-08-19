@@ -5,7 +5,7 @@ interface Props {
 
 const { email } = Astro.props;
 
-function encrypt(email: String) {
+function encrypt(email: string) {
     const pi = '314159265';
     let encrypted = '';
     for (let i = 0; i < email.length; i++)
@@ -30,7 +30,7 @@ function junk(email: string): string {
 
 <a data-encrypted-email={encrypt(email)} set:html={junk(email)} />
 <script>
-    function decrypt(encryptedEmail: String) {
+    function decrypt(encryptedEmail: string) {
         const pi = '314159265';
         let decrypted = '';
         for (let i = 0; i < encryptedEmail.length; i++)
