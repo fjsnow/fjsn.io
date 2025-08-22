@@ -1,6 +1,9 @@
 ---
 import '@/global.css';
 import Layout from '@/layouts/Layout.astro';
+
+import '@fontsource-variable/roboto-mono';
+import robotoMonoWoff2 from '@fontsource-variable/roboto-mono/files/roboto-mono-latin-wght-normal.woff2';
 ---
 
 <!doctype html>
@@ -12,7 +15,13 @@ import Layout from '@/layouts/Layout.astro';
         <meta name="format-detection" content="telephone=no" />
         <link rel="icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="sitemap" href="/sitemap-index.xml" />
-        <title>Freddy Snow</title>
+        <link
+            rel="preload"
+            as="font"
+            type="font/woff2"
+            href={robotoMonoWoff2}
+            crossorigin="anonymous"
+        />
         <script>
             const theme = localStorage.getItem('theme');
             if (theme)
