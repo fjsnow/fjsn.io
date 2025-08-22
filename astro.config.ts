@@ -34,6 +34,6 @@ export default defineConfig({
         sitemap({
             filter: (page) => listed.includes(page) || page === `${BASE_URL}/`,
         }),
-	astroCompress()
+        astroCompress(),
     ],
 });
