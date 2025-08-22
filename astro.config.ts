@@ -1,6 +1,8 @@
 import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
+import astroCompress from 'astro-compress';
+
 import fs from 'fs';
 import yaml from 'js-yaml';
 import path from 'path';
@@ -32,5 +34,6 @@ export default defineConfig({
         sitemap({
             filter: (page) => listed.includes(page) || page === `${BASE_URL}/`,
         }),
+        astroCompress(),
     ],
 });
