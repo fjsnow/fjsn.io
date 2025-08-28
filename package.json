@@ -16,7 +16,7 @@
         "@fontsource-variable/roboto-mono": "^5.2.6",
         "@tailwindcss/vite": "^4.1.12",
         "@vercel/og": "^0.8.5",
-        "astro": "^5.13.3",
+        "astro": "^5.13.4",
         "tailwindcss": "^4.1.12",
         "typescript": "^5.9.2"
     },
