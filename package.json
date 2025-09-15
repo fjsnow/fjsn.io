@@ -13,10 +13,10 @@
     "dependencies": {
         "@astrojs/check": "^0.9.4",
         "@astrojs/sitemap": "^3.5.1",
-        "@fontsource-variable/roboto-mono": "^5.2.6",
+        "@fontsource-variable/roboto-mono": "^5.2.7",
         "@tailwindcss/vite": "^4.1.13",
         "@vercel/og": "^0.8.5",
-        "astro": "^5.13.5",
+        "astro": "^5.13.7",
         "tailwindcss": "^4.1.13",
         "typescript": "^5.9.2"
     },
