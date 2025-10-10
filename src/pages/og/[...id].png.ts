@@ -18,7 +18,7 @@ export function GET({ props }: Props) {
     );
 
     const html = {
-	key: 'html',
+        key: 'html',
         type: 'div',
         props: {
             style: {
