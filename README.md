@@ -1,39 +1,57 @@
-# My personal site
+# fjsn.io
 
-This is my personal site, built with [Astro](https://astro.build) and [Bun](https://bun.sh).
+Freddy Snow’s personal site and blog, built with [Astro](https://astro.build),
+Tailwind CSS, and pnpm.
 
-Markdown files placed within `src/posts` will be automatically converted to blog posts, with layout and all.
+## Requirements
 
-## Post Template
+- Node.js `>=22.12.0`
+- pnpm `10.34.5`
+
+## Development
+
+```sh
+pnpm install
+pnpm run dev
+```
+
+The development server runs at [http://localhost:4321](http://localhost:4321).
+
+Useful commands:
+
+```sh
+pnpm run format        # Format the project
+pnpm run format:check  # Check formatting
+pnpm run check         # Run Astro diagnostics
+pnpm run build         # Create the production build in dist/
+pnpm run preview       # Preview the production build locally
+```
+
+## Posts
+
+Posts are Markdown files in `src/posts`. Each post requires this frontmatter:
 
 ```markdown
 ---
-title:
-description:
-published:
+title: A post title
+description: A short description
+published: 2025-01-01
 ---
 
-# content
+# Post content
 ```
 
-Description is used for purely SEO purposes currently.
+Set `listed: false` to keep a post out of the homepage and sitemap. Frontmatter
+is validated during `pnpm run check` and `pnpm run build`.
 
-Optionally, you can provide `listed: false` in the frontmatter to hide the post from the index and the sitemap. Posts are validated at build time, so you'll get an error if you forget to fill in the required fields.
+## Generated assets
 
-## Running the site
+- Open Graph images are generated at build time under `/og/` for the homepage,
+  posts, and other shareable pages.
+- The site favicon is generated from the profile image at `public/favicon.png`.
 
-### Prerequisites
+## Deployment
 
-1. [Bun](https://bun.sh)
-
-### Development
-
-1. Install the dependencies with `bun install`
-2. Run `bun run dev` to start the development server
-3. Open [http://localhost:4321](http://localhost:4321) to view it in the browser
-
-### Deployment
-
-1. Install the dependencies with `bun install`
-2. Run `bun run build` to build the site
-3. Deploy the `dist` directory to your server
+Pull requests targeting `main` run formatting and Astro checks. Pushing to
+`main` builds the site and deploys the generated `dist/` directory through
+Cloudflare Wrangler.

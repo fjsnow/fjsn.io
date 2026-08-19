@@ -1,6 +1,13 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
+export const ogTheme = {
+    background: '#151515',
+    primary: '#fafaf9',
+    secondary: '#a8a29e',
+    accent: '#c4b5fd',
+} as const;
+
 function readAsset(relativePath: string) {
     return fs.readFileSync(path.resolve(process.cwd(), relativePath));
 }
