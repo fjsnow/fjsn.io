@@ -1,6 +1,6 @@
 import { ImageResponse } from '@vercel/og';
 import type { GetStaticPathsResult } from 'astro';
-import { getOgAssets } from '@/lib/og';
+import { getOgAssets, ogTheme } from '@/lib/og';
 
 interface Props {
     params: { id: string };
@@ -15,7 +15,7 @@ export function GET({ props }: Props) {
         type: 'div',
         props: {
             style: {
-                background: '#FCFCFC',
+                background: ogTheme.background,
                 width: '100%',
                 height: '100%',
                 display: 'flex',
@@ -38,7 +38,7 @@ export function GET({ props }: Props) {
                                 type: 'div',
                                 props: {
                                     style: {
-                                        color: '#0c0a09',
+                                        color: ogTheme.primary,
                                         fontSize: '48px',
                                         fontFamily: 'Roboto Mono Medium',
                                         lineHeight: '1.25',
@@ -52,7 +52,7 @@ export function GET({ props }: Props) {
                                 type: 'div',
                                 props: {
                                     style: {
-                                        color: '#57534d',
+                                        color: ogTheme.secondary,
                                         fontSize: '32px',
                                         fontFamily: 'Roboto Mono Regular',
                                         lineHeight: '1.25',
@@ -84,7 +84,7 @@ export function GET({ props }: Props) {
                                         height: '48px',
                                         borderRadius: '20%',
                                         marginRight: '16px',
-                                        border: '2px solid #e7e5e4',
+                                        border: `2px solid ${ogTheme.border}`,
                                     },
                                 },
                             },
@@ -92,7 +92,7 @@ export function GET({ props }: Props) {
                                 type: 'div',
                                 props: {
                                     style: {
-                                        color: '#0268e3',
+                                        color: ogTheme.accent,
                                         fontSize: '30px',
                                         fontFamily: 'Roboto Mono Medium',
                                     },
