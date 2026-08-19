@@ -4,7 +4,7 @@ import sitemap from '@astrojs/sitemap';
 import astroCompress from 'astro-compress';
 
 import fs from 'fs';
-import yaml from 'js-yaml';
+import * as yaml from 'js-yaml';
 import path from 'path';
 
 const BASE_URL = 'https://fjsn.io';

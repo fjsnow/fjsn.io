@@ -1,8 +1,7 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
-import fs from 'fs';
-import path from 'path';
 import { ImageResponse } from '@vercel/og';
 import { formatDate } from '@/lib/post';
+import { getOgAssets } from '@/lib/og';
 import type { GetStaticPathsResult } from 'astro';
 
 interface Props {
@@ -11,13 +10,7 @@ interface Props {
 }
 
 export function GET({ props }: Props) {
-    const avatar = fs.readFileSync(path.resolve('src/assets/avatar.png'));
-    const robotoMonoRegular = fs.readFileSync(
-        path.resolve('src/assets/fonts/RobotoMono-Regular.ttf')
-    );
-    const robotoMonoMedium = fs.readFileSync(
-        path.resolve('src/assets/fonts/RobotoMono-Medium.ttf')
-    );
+    const { avatar, fonts } = getOgAssets();
 
     const html = {
         key: 'html',
@@ -89,7 +82,7 @@ export function GET({ props }: Props) {
                             {
                                 type: 'img',
                                 props: {
-                                    src: avatar.buffer,
+                                    src: avatar,
                                     style: {
                                         width: '48px',
                                         height: '48px',
@@ -120,18 +113,7 @@ export function GET({ props }: Props) {
     return new ImageResponse(html, {
         width: 1200,
         height: 630,
-        fonts: [
-            {
-                name: 'Roboto Mono Regular',
-                data: Buffer.from(robotoMonoRegular.buffer),
-                style: 'normal',
-            },
-            {
-                name: 'Roboto Mono Medium',
-                data: Buffer.from(robotoMonoMedium.buffer),
-                style: 'normal',
-            },
-        ],
+        fonts,
     });
 }
 
