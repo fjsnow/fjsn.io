@@ -1,7 +1,7 @@
 ---
 import Root from '@/layouts/Root.astro';
 import Header from '@/components/index/Header.astro';
-import About from '@/components/index/About.astro';
+import Experience from '@/components/index/Experience.astro';
 import Posts from '@/components/index/Posts.astro';
 import Metadata from '@/components/Metadata.astro';
 ---
@@ -15,10 +15,10 @@ import Metadata from '@/components/Metadata.astro';
         type: 'website',
     }}
 />
-<Root>
+<Root showFidget>
     <div class="flex flex-col gap-8">
         <Header />
-        <About />
+        <Experience />
         <Posts />
     </div>
 </Root>

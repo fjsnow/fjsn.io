@@ -2,9 +2,14 @@
 import '@/global.css';
 import Layout from '@/layouts/Layout.astro';
 
-import '@fontsource-variable/roboto-mono';
-import robotoMonoWoff2 from '@fontsource-variable/roboto-mono/files/roboto-mono-latin-wght-normal.woff2';
+import '@fontsource-variable/jetbrains-mono';
+import jetBrainsMonoWoff2 from '@fontsource-variable/jetbrains-mono/files/jetbrains-mono-latin-wght-normal.woff2';
 
+interface Props {
+    showFidget?: boolean;
+}
+
+const { showFidget = false } = Astro.props;
 const DISCORD_ID = '351059285754642463';
 ---
 
@@ -21,7 +26,7 @@ const DISCORD_ID = '351059285754642463';
             rel="preload"
             as="font"
             type="font/woff2"
-            href={robotoMonoWoff2}
+            href={jetBrainsMonoWoff2}
             crossorigin="anonymous"
         />
         <link
@@ -44,9 +49,9 @@ const DISCORD_ID = '351059285754642463';
         </noscript>
     </head>
     <body
-        class="bg-[#FCFCFC] font-mono text-stone-950 antialiased dark:bg-[#151515] dark:text-stone-50"
+        class="bg-[#FCFCFC] font-sans font-[450] text-stone-950 antialiased dark:bg-[#151515] dark:text-stone-50"
     >
-        <Layout>
+        <Layout showFidget={showFidget}>
             <slot />
         </Layout>
     </body>

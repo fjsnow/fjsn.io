@@ -1,0 +1,101 @@
+---
+import { Image } from 'astro:assets';
+import Section from './Section.astro';
+import UniversityLightLogo from '@/assets/experience/university-of-birmingham-light.svg';
+import UniversityDarkLogo from '@/assets/experience/university-of-birmingham-dark.svg';
+import OalLogo from '@/assets/experience/oal.png';
+---
+
+<Section title="experience">
+    <div class="flex flex-col gap-1">
+        <a
+            href="https://www.oalgroup.com/"
+            target="_blank"
+            rel="noreferrer"
+            class="group -mx-2 grid grid-cols-[2.5rem_minmax(0,1fr)_auto] items-center gap-3 rounded-lg p-2"
+        >
+            <div
+                class="flex h-10 w-10 items-center justify-center overflow-hidden"
+            >
+                <span
+                    class="oal-logo"
+                    role="img"
+                    aria-label="OAL Group logo"
+                    style={`--oal-logo-source: url(${OalLogo.src})`}></span>
+            </div>
+            <div class="min-w-0">
+                <h2 class="text-sm group-hover:underline">Software Engineer</h2>
+                <p class="text-xs text-stone-500 dark:text-stone-400">
+                    Olympus Automation Ltd
+                </p>
+            </div>
+            <span class="text-right text-xs text-stone-500 dark:text-stone-400">
+                Jul 2026–Present
+            </span>
+        </a>
+
+        <a
+            href="https://www.birmingham.ac.uk/"
+            target="_blank"
+            rel="noreferrer"
+            class="group -mx-2 grid grid-cols-[2.5rem_minmax(0,1fr)_auto] items-center gap-3 rounded-lg p-2"
+        >
+            <div class="flex h-10 w-10 items-center justify-center">
+                <div class="h-10 w-7 overflow-hidden">
+                    <Image
+                        src={UniversityLightLogo}
+                        alt="University of Birmingham logo"
+                        width="140"
+                        height="46"
+                        class="h-10 w-auto max-w-none dark:hidden"
+                    />
+                    <Image
+                        src={UniversityDarkLogo}
+                        alt="University of Birmingham logo"
+                        width="140"
+                        height="46"
+                        class="hidden h-10 w-auto max-w-none dark:block"
+                    />
+                </div>
+            </div>
+            <div class="min-w-0">
+                <h2 class="text-sm group-hover:underline">
+                    BSc Computer Science
+                </h2>
+                <p class="text-xs text-stone-500 dark:text-stone-400">
+                    University of Birmingham · First Class Honours
+                </p>
+            </div>
+            <span class="text-right text-xs text-stone-500 dark:text-stone-400">
+                2023–2026
+            </span>
+        </a>
+    </div>
+</Section>
+
+<style>
+    .oal-logo {
+        display: block;
+        width: 100%;
+        height: 100%;
+        background-color: #1c3155;
+        mask-image: var(--oal-logo-source);
+        mask-position: center;
+        mask-repeat: no-repeat;
+        mask-size: contain;
+        -webkit-mask-image: var(--oal-logo-source);
+        -webkit-mask-position: center;
+        -webkit-mask-repeat: no-repeat;
+        -webkit-mask-size: contain;
+    }
+
+    :global([data-theme='dark'] .oal-logo) {
+        background-color: #b8c9e8;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        :global(html:not([data-theme='light']) .oal-logo) {
+            background-color: #b8c9e8;
+        }
+    }
+</style>
