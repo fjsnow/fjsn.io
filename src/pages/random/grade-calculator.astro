@@ -1,6 +1,7 @@
 ---
 import Root from '@/layouts/Root.astro';
 import Metadata from '@/components/Metadata.astro';
+import { ogVersion } from '@/lib/og-version';
 import Return from '@/components/Return.astro';
 import JavascriptWarning from '@/components/JavascriptWarning.astro';
 
@@ -201,7 +202,7 @@ const modules: Module[] = [
     description="Grade calculator for 2nd Years in Computer Science at UoB for the 25/26 academic year."
     url={import.meta.env.SITE + '/random/grade-calculator/'}
     og={{
-        image: import.meta.env.SITE + '/og/random/grade-calculator.png',
+        image: `${import.meta.env.SITE}/og/random/grade-calculator.png?v=${ogVersion}`,
         type: 'website',
     }}
 />

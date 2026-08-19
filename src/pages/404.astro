@@ -1,6 +1,7 @@
 ---
 import Metadata from '@/components/Metadata.astro';
 import Root from '@/layouts/Root.astro';
+import { ogVersion } from '@/lib/og-version';
 ---
 
 <Metadata
@@ -8,7 +9,7 @@ import Root from '@/layouts/Root.astro';
     description="This page does not exist."
     url={import.meta.env.SITE + '/404/'}
     og={{
-        image: import.meta.env.SITE + '/og/404.png',
+        image: `${import.meta.env.SITE}/og/404.png?v=${ogVersion}`,
         type: 'website',
     }}
 />

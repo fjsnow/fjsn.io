@@ -15,6 +15,7 @@ import Root from '@/layouts/Root.astro';
 import Header from '@/components/post/Header.astro';
 import Metadata from '@/components/Metadata.astro';
 import Return from '@/components/Return.astro';
+import { ogVersion } from '@/lib/og-version';
 
 interface Props {
     post: CollectionEntry<'posts'>;
@@ -30,7 +31,7 @@ const { Content } = await render(post);
     url={import.meta.env.SITE + '/posts/' + post.id + '/'}
     og={{
         title: post.data.title,
-        image: `${import.meta.env.SITE}/og/posts/${post.id}.png`,
+        image: `${import.meta.env.SITE}/og/posts/${post.id}.png?v=${ogVersion}`,
         type: 'article',
     }}
 />

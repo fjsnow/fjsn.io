@@ -4,6 +4,7 @@ import Header from '@/components/index/Header.astro';
 import Experience from '@/components/index/Experience.astro';
 import Posts from '@/components/index/Posts.astro';
 import Metadata from '@/components/Metadata.astro';
+import { ogVersion } from '@/lib/og-version';
 ---
 
 <Metadata
@@ -11,7 +12,7 @@ import Metadata from '@/components/Metadata.astro';
     description="Freddy Snow is a 21 y/o developer from the UK."
     url={import.meta.env.SITE}
     og={{
-        image: import.meta.env.SITE + '/og/index.png',
+        image: `${import.meta.env.SITE}/og/index.png?v=${ogVersion}`,
         type: 'website',
         width: 1200,
         height: 300,
