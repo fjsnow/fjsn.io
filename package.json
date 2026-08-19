@@ -3,6 +3,9 @@
     "type": "module",
     "version": "1.0",
     "packageManager": "pnpm@10.34.5",
+    "engines": {
+        "node": ">=22.12.0"
+    },
     "pnpm": {
         "onlyBuiltDependencies": [
             "esbuild",
@@ -18,23 +21,23 @@
         "format:check": "prettier --check ."
     },
     "dependencies": {
-        "@astrojs/check": "^0.9.4",
-        "@astrojs/sitemap": "^3.6.0",
+        "@astrojs/check": "^0.9.10",
+        "@astrojs/sitemap": "^3.7.3",
         "@fontsource-variable/jetbrains-mono": "^5.3.0",
-        "@tailwindcss/vite": "^4.1.14",
-        "@vercel/og": "^0.8.5",
-        "astro": "^5.14.3",
-        "sharp": "^0.34.5",
-        "tailwindcss": "^4.1.14",
-        "typescript": "^5.9.3"
+        "@tailwindcss/vite": "^4.3.3",
+        "@vercel/og": "^1.0.1",
+        "astro": "^7.2.4",
+        "sharp": "^0.35.3",
+        "tailwindcss": "^4.3.3"
     },
     "devDependencies": {
-        "@tailwindcss/typography": "^0.5.19",
+        "@tailwindcss/typography": "^0.5.20",
         "@types/js-yaml": "^4.0.9",
-        "astro-compress": "2.3.8",
-        "js-yaml": "^4.1.0",
+        "astro-compress": "2.4.3",
+        "js-yaml": "^5.3.0",
         "prettier": "^3.9.6",
         "prettier-plugin-astro": "^0.14.1",
-        "prettier-plugin-tailwindcss": "^0.6.14"
+        "prettier-plugin-tailwindcss": "^0.8.1",
+        "typescript": "^6.0.3"
     }
 }

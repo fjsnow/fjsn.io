@@ -25,11 +25,13 @@ const props = Astro.props;
 />
 <meta property="og:url" content={props.og.url || props.url} />
 {props.og.image && <meta property="og:image" content={props.og.image} />}
+{props.og.image && <meta property="og:image:width" content="1200" />}
+{props.og.image && <meta property="og:image:height" content="630" />}
 {props.og.type && <meta property="og:type" content={props.og.type} />}
 {props.og.image && <meta name="twitter:card" content="summary_large_image" />}
 <meta name="twitter:title" content={props.og.title || props.title} />
 <meta
-    property="twitter:description"
+    name="twitter:description"
     content={props.og.description || props.description}
 />
 {props.og.image && <meta name="twitter:image" content={props.og.image} />}

@@ -1,6 +1,6 @@
 @import 'tailwindcss';
-@plugin "@tailwindcss/typography";
-@config "../tailwind.config.mjs";
+@plugin '@tailwindcss/typography';
+@config '../tailwind.config.mjs';
 
 @custom-variant dark {
     &:where([data-theme='dark'] *) {
