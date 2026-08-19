@@ -1,7 +1,7 @@
 ---
 import Section from './Section.astro';
-import Post from './Post.astro';
 import { getCollection } from 'astro:content';
+import { formatDate } from '@/lib/post';
 
 const posts = (await getCollection('posts'))
     .filter((post) => post.data.listed !== false)
@@ -11,9 +11,23 @@ const posts = (await getCollection('posts'))
 <Section title="posts">
     {
         posts.length > 0 ? (
-            <div class="group flex flex-col">
-                {posts.map((post) => (
-                    <Post post={post} />
+            <div class="flex flex-col">
+                {posts.map((post, index) => (
+                    <a
+                        href={'/posts/' + post.id}
+                        class="group grid grid-cols-[2rem_minmax(0,1fr)_auto] items-baseline gap-3 py-1 first:pt-0 last:pb-0"
+                        data-astro-prefetch
+                    >
+                        <span class="text-xs text-stone-500 tabular-nums dark:text-stone-400">
+                            {String(index + 1).padStart(2, '0')}
+                        </span>
+                        <span class="min-w-0 text-sm group-hover:underline">
+                            {post.data.title}
+                        </span>
+                        <span class="text-right text-xs text-stone-500 dark:text-stone-400">
+                            {formatDate(new Date(post.data.published))}
+                        </span>
+                    </a>
                 ))}
             </div>
         ) : (

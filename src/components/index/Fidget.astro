@@ -1,0 +1,155 @@
+---
+const columns = 50;
+const rows = 5;
+const verticalProximityRules = Array.from({ length: columns }, (_, index) => {
+    const hoveredColumn = index + 1;
+    const selectors = [];
+
+    for (const targetColumn of [
+        hoveredColumn - 1,
+        hoveredColumn,
+        hoveredColumn + 1,
+    ]) {
+        if (targetColumn < 1 || targetColumn > columns) continue;
+        const scale = targetColumn === hoveredColumn ? '1.85' : '1.35';
+        const nextRowTarget = `.fidget-row:has(.fidget-dot:nth-child(${hoveredColumn}):hover) + .fidget-row .fidget-dot:nth-child(${targetColumn})`;
+        const previousRowTarget = `.fidget-row:has(+ .fidget-row .fidget-dot:nth-child(${hoveredColumn}):hover) .fidget-dot:nth-child(${targetColumn})`;
+        selectors.push(
+            `${nextRowTarget}::before,
+            ${nextRowTarget}::after,
+            ${previousRowTarget}::before,
+            ${previousRowTarget}::after { transform: translate(-50%, -50%) scale(${scale}); }`,
+            `${nextRowTarget}::after,
+            ${previousRowTarget}::after { opacity: 1; }`
+        );
+    }
+
+    return selectors.join('\n');
+}).join('\n');
+---
+
+<div class="fidget" aria-label="Interactive colour fidget">
+    <div class="fidget-track">
+        {
+            Array.from({ length: rows }, () => (
+                <div class="fidget-row">
+                    {Array.from({ length: columns }, () => (
+                        <span class="fidget-dot" />
+                    ))}
+                </div>
+            ))
+        }
+    </div>
+</div>
+
+<style is:global set:html={verticalProximityRules}></style>
+
+<style>
+    .fidget {
+        --fidget-color: #e7e5e4;
+        --fidget-hover-color: #a79cc7;
+        width: 100%;
+        height: 56px;
+        overflow: visible;
+    }
+
+    .fidget-track {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+    }
+
+    .fidget-row {
+        display: grid;
+        flex: 1;
+        grid-template-columns: repeat(50, minmax(0, 1fr));
+        min-height: 0;
+    }
+
+    .fidget-dot {
+        position: relative;
+        display: block;
+        min-width: 0;
+        min-height: 0;
+    }
+
+    .fidget-dot::before,
+    .fidget-dot::after {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        display: block;
+        width: clamp(3px, 0.45vw, 6px);
+        height: clamp(3px, 0.45vw, 6px);
+        border-radius: 9999px;
+        content: '';
+        pointer-events: none;
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+    .fidget-dot::before {
+        background: var(--fidget-color);
+        transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .fidget-dot::after {
+        background: var(--fidget-hover-color);
+        opacity: 0;
+        transition:
+            transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
+            opacity 220ms ease;
+    }
+
+    .fidget-dot:hover::before,
+    .fidget-dot:hover::after {
+        transform: translate(-50%, -50%) scale(2.8);
+    }
+
+    .fidget-dot:hover::after {
+        opacity: 1;
+    }
+
+    .fidget-dot:has(+ .fidget-dot:hover)::before,
+    .fidget-dot:hover + .fidget-dot::before,
+    .fidget-dot:has(+ .fidget-dot:hover)::after,
+    .fidget-dot:hover + .fidget-dot::after {
+        transform: translate(-50%, -50%) scale(1.85);
+    }
+
+    .fidget-dot:has(+ .fidget-dot:hover)::after,
+    .fidget-dot:hover + .fidget-dot::after {
+        opacity: 1;
+    }
+
+    .fidget-dot:has(+ .fidget-dot + .fidget-dot:hover)::before,
+    .fidget-dot:hover + .fidget-dot + .fidget-dot::before,
+    .fidget-dot:has(+ .fidget-dot + .fidget-dot:hover)::after,
+    .fidget-dot:hover + .fidget-dot + .fidget-dot::after {
+        transform: translate(-50%, -50%) scale(1.35);
+    }
+
+    .fidget-dot:has(+ .fidget-dot + .fidget-dot:hover)::after,
+    .fidget-dot:hover + .fidget-dot + .fidget-dot::after {
+        opacity: 1;
+    }
+
+    :global([data-theme='dark'] .fidget) {
+        --fidget-color: #292524;
+        --fidget-hover-color: #6f63bd;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        :global(html:not([data-theme='light']) .fidget) {
+            --fidget-color: #292524;
+            --fidget-hover-color: #6f63bd;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .fidget-dot::before,
+        .fidget-dot::after {
+            transition: none;
+        }
+    }
+</style>
