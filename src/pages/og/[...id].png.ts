@@ -84,7 +84,6 @@ export function GET({ props }: Props) {
                                         height: '48px',
                                         borderRadius: '20%',
                                         marginRight: '16px',
-                                        border: `2px solid ${ogTheme.border}`,
                                     },
                                 },
                             },
