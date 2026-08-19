@@ -3,9 +3,9 @@ import path from 'node:path';
 
 export const ogTheme = {
     background: '#151515',
-    primary: '#ffffff',
-    secondary: '#ffffff',
-    accent: '#ffffff',
+    primary: '#fafaf9',
+    secondary: '#a8a29e',
+    accent: '#c4b5fd',
 } as const;
 
 function readAsset(relativePath: string) {
