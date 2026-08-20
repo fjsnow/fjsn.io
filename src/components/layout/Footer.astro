@@ -12,41 +12,41 @@ const { showFidget = false } = Astro.props;
 const year = new Date().getFullYear();
 ---
 
-<div
-    class="relative mt-8 flex flex-row items-center justify-between gap-2 text-sm text-stone-500 sm:mt-16 dark:text-stone-400"
->
+<div class="mt-8 text-sm text-stone-500 sm:mt-16 dark:text-stone-400">
     {
         showFidget && (
-            <div class="absolute right-0 bottom-full left-0 mb-6">
+            <div class="mb-6">
                 <Fidget />
             </div>
         )
     }
-    <span>© {year} Freddy Snow</span>
-    <div class="flex flex-row gap-2">
-        <a
-            href="https://github.com/fjsnow/fjsn.io"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Github repository"
-            class="relative flex h-6 w-6 cursor-pointer items-center justify-center gap-2 rounded-sm text-stone-500 hover:bg-stone-200 hover:text-stone-700 dark:text-stone-400 dark:hover:bg-stone-800 dark:hover:text-stone-300"
-        >
-            <Github class="h-4 w-4" aria-label="Github" />
-        </a>
-        <button
-            class="js-only group relative h-6 w-6 cursor-pointer gap-2 rounded-sm hover:bg-stone-200 dark:hover:bg-stone-800"
-            id="theme-toggle"
-            aria-label="Toggle theme"
-        >
-            <Light
-                class="absolute top-1 left-1 z-10 block h-4 w-4 text-stone-500 group-hover:text-stone-700 dark:hidden"
-                aria-hidden
-            />
-            <Dark
-                class="absolute top-1 left-1 z-10 hidden h-4 w-4 text-stone-400 group-hover:text-stone-300 dark:block"
-                aria-hidden
-            />
-        </button>
+    <div class="flex flex-row items-center justify-between gap-2">
+        <span>© {year} Freddy Snow</span>
+        <div class="flex flex-row gap-2">
+            <a
+                href="https://github.com/fjsnow/fjsn.io"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Github repository"
+                class="relative flex h-6 w-6 cursor-pointer items-center justify-center gap-2 rounded-sm text-stone-500 hover:bg-stone-200 hover:text-stone-700 dark:text-stone-400 dark:hover:bg-stone-800 dark:hover:text-stone-300"
+            >
+                <Github class="h-4 w-4" aria-label="Github" />
+            </a>
+            <button
+                class="js-only group relative h-6 w-6 cursor-pointer gap-2 rounded-sm hover:bg-stone-200 dark:hover:bg-stone-800"
+                id="theme-toggle"
+                aria-label="Toggle theme"
+            >
+                <Light
+                    class="absolute top-1 left-1 z-10 block h-4 w-4 text-stone-500 group-hover:text-stone-700 dark:hidden"
+                    aria-hidden
+                />
+                <Dark
+                    class="absolute top-1 left-1 z-10 hidden h-4 w-4 text-stone-400 group-hover:text-stone-300 dark:block"
+                    aria-hidden
+                />
+            </button>
+        </div>
     </div>
 </div>
 <script>

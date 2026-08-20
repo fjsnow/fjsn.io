@@ -48,6 +48,9 @@ const verticalProximityRules = Array.from({ length: columns }, (_, index) => {
     .fidget {
         --fidget-color: #e7e5e4;
         --fidget-hover-color: #a79cc7;
+        --fidget-columns: 50;
+        --fidget-cell-size: 13px;
+        --fidget-dot-size: 4px;
         width: 100%;
         height: 56px;
         overflow: visible;
@@ -63,7 +66,11 @@ const verticalProximityRules = Array.from({ length: columns }, (_, index) => {
     .fidget-row {
         display: grid;
         flex: 1;
-        grid-template-columns: repeat(50, minmax(0, 1fr));
+        grid-template-columns: repeat(
+            var(--fidget-columns),
+            minmax(0, var(--fidget-cell-size))
+        );
+        justify-content: center;
         min-height: 0;
     }
 
@@ -80,8 +87,8 @@ const verticalProximityRules = Array.from({ length: columns }, (_, index) => {
         top: 50%;
         left: 50%;
         display: block;
-        width: clamp(3px, 0.45vw, 6px);
-        height: clamp(3px, 0.45vw, 6px);
+        width: var(--fidget-dot-size);
+        height: var(--fidget-dot-size);
         border-radius: 9999px;
         content: '';
         pointer-events: none;
@@ -153,3 +160,40 @@ const verticalProximityRules = Array.from({ length: columns }, (_, index) => {
         }
     }
 </style>
+
+<script>
+    const fidgetCellSize = 13;
+
+    document.querySelectorAll('.fidget').forEach((fidget) => {
+        if (!(fidget instanceof HTMLElement)) return;
+
+        const rows = fidget.querySelectorAll('.fidget-row');
+        const dotsPerRow = rows[0]?.children.length ?? 0;
+
+        const updateColumns = () => {
+            const columns = Math.max(
+                1,
+                Math.min(
+                    dotsPerRow,
+                    Math.floor(fidget.clientWidth / fidgetCellSize)
+                )
+            );
+
+            fidget.style.setProperty('--fidget-columns', columns.toString());
+
+            rows.forEach((row) => {
+                row.querySelectorAll('.fidget-dot').forEach((dot, index) => {
+                    if (dot instanceof HTMLElement) {
+                        dot.style.display = index < columns ? '' : 'none';
+                    }
+                });
+            });
+        };
+
+        updateColumns();
+
+        if ('ResizeObserver' in window) {
+            new ResizeObserver(updateColumns).observe(fidget);
+        }
+    });
+</script>
