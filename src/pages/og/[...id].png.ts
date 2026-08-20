@@ -169,13 +169,5 @@ export async function getStaticPaths(): Promise<GetStaticPathsResult> {
                 description: "Are you sure you're in the right place?",
             },
         },
-        {
-            params: { id: 'random/grade-calculator' },
-            props: {
-                title: 'Grade Calculator',
-                description:
-                    'Grade calculator for 2nd Years in Computer Science at UoB for the 25/26 academic year.',
-            },
-        },
     ];
 }
