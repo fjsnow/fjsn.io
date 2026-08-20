@@ -178,11 +178,9 @@ const verticalProximityRules = Array.from({ length: columns }, (_, index) => {
         let activeDot: HTMLElement | undefined;
         let isDragging = false;
 
-        const updateActiveDot = (event: PointerEvent) => {
-            if (!isDragging) return;
-
+        const updateActiveDot = (clientX: number, clientY: number) => {
             const dot = document
-                .elementFromPoint(event.clientX, event.clientY)
+                .elementFromPoint(clientX, clientY)
                 ?.closest('.fidget-dot');
 
             if (!(dot instanceof HTMLElement) || !fidget.contains(dot)) {
@@ -195,27 +193,33 @@ const verticalProximityRules = Array.from({ length: columns }, (_, index) => {
             activeDot.classList.add('is-active');
         };
 
-        const clearActiveDot = (event: PointerEvent) => {
+        const clearActiveDot = () => {
             if (!isDragging) return;
 
             isDragging = false;
             activeDot?.classList.remove('is-active');
             activeDot = undefined;
-
-            if (fidget.hasPointerCapture(event.pointerId)) {
-                fidget.releasePointerCapture(event.pointerId);
-            }
         };
 
-        fidget.addEventListener('pointerdown', (event) => {
-            if (event.pointerType !== 'touch') return;
+        fidget.addEventListener('touchstart', (event) => {
+            const touch = event.touches[0];
+            if (!touch) return;
 
             isDragging = true;
-            fidget.setPointerCapture(event.pointerId);
-            updateActiveDot(event);
+            updateActiveDot(touch.clientX, touch.clientY);
         });
-        fidget.addEventListener('pointermove', updateActiveDot);
-        fidget.addEventListener('pointerup', clearActiveDot);
-        fidget.addEventListener('pointercancel', clearActiveDot);
+        fidget.addEventListener(
+            'touchmove',
+            (event) => {
+                if (!isDragging) return;
+                event.preventDefault();
+
+                const touch = event.touches[0];
+                if (touch) updateActiveDot(touch.clientX, touch.clientY);
+            },
+            { passive: false }
+        );
+        fidget.addEventListener('touchend', clearActiveDot);
+        fidget.addEventListener('touchcancel', clearActiveDot);
     });
 </script>
