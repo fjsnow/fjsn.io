@@ -1,7 +1,6 @@
 ---
 const columns = 50;
 const rows = 5;
-const activeSelector = ':is(:hover, :active, .is-active)';
 const verticalProximityRules = Array.from({ length: columns }, (_, index) => {
     const hoveredColumn = index + 1;
     const selectors = [];
@@ -13,8 +12,8 @@ const verticalProximityRules = Array.from({ length: columns }, (_, index) => {
     ]) {
         if (targetColumn < 1 || targetColumn > columns) continue;
         const scale = targetColumn === hoveredColumn ? '1.85' : '1.35';
-        const nextRowTarget = `.fidget-row:has(.fidget-dot:nth-child(${hoveredColumn})${activeSelector}) + .fidget-row .fidget-dot:nth-child(${targetColumn})`;
-        const previousRowTarget = `.fidget-row:has(+ .fidget-row .fidget-dot:nth-child(${hoveredColumn})${activeSelector}) .fidget-dot:nth-child(${targetColumn})`;
+        const nextRowTarget = `.fidget-row:has(.fidget-dot:nth-child(${hoveredColumn}):hover) + .fidget-row .fidget-dot:nth-child(${targetColumn})`;
+        const previousRowTarget = `.fidget-row:has(+ .fidget-row .fidget-dot:nth-child(${hoveredColumn}):hover) .fidget-dot:nth-child(${targetColumn})`;
         selectors.push(
             `${nextRowTarget}::before,
             ${nextRowTarget}::after,
@@ -49,12 +48,12 @@ const verticalProximityRules = Array.from({ length: columns }, (_, index) => {
     .fidget {
         --fidget-color: #e7e5e4;
         --fidget-hover-color: #a79cc7;
+        --fidget-columns: 50;
         --fidget-cell-size: 13px;
         --fidget-dot-size: 4px;
         width: 100%;
         height: 56px;
-        overflow: hidden;
-        touch-action: none;
+        overflow: visible;
     }
 
     .fidget-track {
@@ -65,8 +64,12 @@ const verticalProximityRules = Array.from({ length: columns }, (_, index) => {
     }
 
     .fidget-row {
-        display: flex;
+        display: grid;
         flex: 1;
+        grid-template-columns: repeat(
+            var(--fidget-columns),
+            minmax(0, var(--fidget-cell-size))
+        );
         justify-content: center;
         min-height: 0;
     }
@@ -74,8 +77,7 @@ const verticalProximityRules = Array.from({ length: columns }, (_, index) => {
     .fidget-dot {
         position: relative;
         display: block;
-        flex: 0 0 var(--fidget-cell-size);
-        width: var(--fidget-cell-size);
+        min-width: 0;
         min-height: 0;
     }
 
@@ -106,49 +108,43 @@ const verticalProximityRules = Array.from({ length: columns }, (_, index) => {
             opacity 220ms ease;
     }
 
-    .fidget-dot:is(:hover, :active, .is-active)::before,
-    .fidget-dot:is(:hover, :active, .is-active)::after {
+    .fidget-dot:hover::before,
+    .fidget-dot:hover::after {
         transform: translate(-50%, -50%) scale(2.8);
     }
 
-    .fidget-dot:is(:hover, :active, .is-active)::after {
+    .fidget-dot:hover::after {
         opacity: 1;
     }
 
-    .fidget-dot:has(+ .fidget-dot:is(:hover, :active, .is-active))::before,
-    .fidget-dot:is(:hover, :active, .is-active) + .fidget-dot::before,
-    .fidget-dot:has(+ .fidget-dot:is(:hover, :active, .is-active))::after,
-    .fidget-dot:is(:hover, :active, .is-active) + .fidget-dot::after {
+    .fidget-dot:has(+ .fidget-dot:hover)::before,
+    .fidget-dot:hover + .fidget-dot::before,
+    .fidget-dot:has(+ .fidget-dot:hover)::after,
+    .fidget-dot:hover + .fidget-dot::after {
         transform: translate(-50%, -50%) scale(1.85);
     }
 
-    .fidget-dot:has(+ .fidget-dot:is(:hover, :active, .is-active))::after,
-    .fidget-dot:is(:hover, :active, .is-active) + .fidget-dot::after {
+    .fidget-dot:has(+ .fidget-dot:hover)::after,
+    .fidget-dot:hover + .fidget-dot::after {
         opacity: 1;
     }
 
-    .fidget-dot:has(
-            + .fidget-dot + .fidget-dot:is(:hover, :active, .is-active)
-        )::before,
-    .fidget-dot:is(:hover, :active, .is-active)
-        + .fidget-dot
-        + .fidget-dot::before,
-    .fidget-dot:has(
-            + .fidget-dot + .fidget-dot:is(:hover, :active, .is-active)
-        )::after,
-    .fidget-dot:is(:hover, :active, .is-active)
-        + .fidget-dot
-        + .fidget-dot::after {
+    .fidget-dot:has(+ .fidget-dot + .fidget-dot:hover)::before,
+    .fidget-dot:hover + .fidget-dot + .fidget-dot::before,
+    .fidget-dot:has(+ .fidget-dot + .fidget-dot:hover)::after,
+    .fidget-dot:hover + .fidget-dot + .fidget-dot::after {
         transform: translate(-50%, -50%) scale(1.35);
     }
 
-    .fidget-dot:has(
-            + .fidget-dot + .fidget-dot:is(:hover, :active, .is-active)
-        )::after,
-    .fidget-dot:is(:hover, :active, .is-active)
-        + .fidget-dot
-        + .fidget-dot::after {
+    .fidget-dot:has(+ .fidget-dot + .fidget-dot:hover)::after,
+    .fidget-dot:hover + .fidget-dot + .fidget-dot::after {
         opacity: 1;
+    }
+
+    @media (max-width: 767px) {
+        .fidget {
+            display: none;
+        }
     }
 
     :global([data-theme='dark'] .fidget) {
@@ -172,54 +168,38 @@ const verticalProximityRules = Array.from({ length: columns }, (_, index) => {
 </style>
 
 <script>
+    const fidgetCellSize = 13;
+
     document.querySelectorAll('.fidget').forEach((fidget) => {
         if (!(fidget instanceof HTMLElement)) return;
 
-        let activeDot: HTMLElement | undefined;
-        let isDragging = false;
+        const rows = fidget.querySelectorAll('.fidget-row');
+        const dotsPerRow = rows[0]?.children.length ?? 0;
 
-        const updateActiveDot = (clientX: number, clientY: number) => {
-            const dot = document
-                .elementFromPoint(clientX, clientY)
-                ?.closest('.fidget-dot');
+        const updateColumns = () => {
+            const columns = Math.max(
+                1,
+                Math.min(
+                    dotsPerRow,
+                    Math.floor(fidget.clientWidth / fidgetCellSize)
+                )
+            );
 
-            if (!(dot instanceof HTMLElement) || !fidget.contains(dot)) {
-                return;
-            }
+            fidget.style.setProperty('--fidget-columns', columns.toString());
 
-            if (activeDot === dot) return;
-            activeDot?.classList.remove('is-active');
-            activeDot = dot;
-            activeDot.classList.add('is-active');
+            rows.forEach((row) => {
+                row.querySelectorAll('.fidget-dot').forEach((dot, index) => {
+                    if (dot instanceof HTMLElement) {
+                        dot.style.display = index < columns ? '' : 'none';
+                    }
+                });
+            });
         };
 
-        const clearActiveDot = () => {
-            if (!isDragging) return;
+        updateColumns();
 
-            isDragging = false;
-            activeDot?.classList.remove('is-active');
-            activeDot = undefined;
-        };
-
-        fidget.addEventListener('touchstart', (event) => {
-            const touch = event.touches[0];
-            if (!touch) return;
-
-            isDragging = true;
-            updateActiveDot(touch.clientX, touch.clientY);
-        });
-        fidget.addEventListener(
-            'touchmove',
-            (event) => {
-                if (!isDragging) return;
-                event.preventDefault();
-
-                const touch = event.touches[0];
-                if (touch) updateActiveDot(touch.clientX, touch.clientY);
-            },
-            { passive: false }
-        );
-        fidget.addEventListener('touchend', clearActiveDot);
-        fidget.addEventListener('touchcancel', clearActiveDot);
+        if ('ResizeObserver' in window) {
+            new ResizeObserver(updateColumns).observe(fidget);
+        }
     });
 </script>
