@@ -10,7 +10,6 @@ interface Props {
 }
 
 const { showFidget = false } = Astro.props;
-const DISCORD_ID = '351059285754642463';
 ---
 
 <!doctype html>
@@ -27,12 +26,6 @@ const DISCORD_ID = '351059285754642463';
             as="font"
             type="font/woff2"
             href={jetBrainsMonoWoff2}
-            crossorigin="anonymous"
-        />
-        <link
-            rel="preload"
-            href={`https://api.lanyard.rest/v1/users/${DISCORD_ID}`}
-            as="fetch"
             crossorigin="anonymous"
         />
         <script>
